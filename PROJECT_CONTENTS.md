@@ -3,7 +3,7 @@
 ## Current Project Structure
 
 ### Root Directory Files:
-- **`working.html`** - Main application file (v1.10.50) - Complete PWA with embedded CSS/JavaScript
+- **`working.html`** - Main application file (v1.10.51) - Complete PWA with embedded CSS/JavaScript
   - 4000+ lines of self-contained HTML/CSS/JavaScript
   - Includes all application logic, UI components, and Supabase integration
   - CDN dependencies: Tailwind CSS, Supabase JS, jsPDF, SheetJS
@@ -38,8 +38,8 @@
 
 ## Project Status
 
-### Current Version: **v1.10.50**
-- **Status**: Production-ready Supabase-based architecture
+### Current Version: **v1.10.51**
+- **Status**: Production-ready Supabase-based architecture with enhanced mobile responsiveness
 - **Migration**: ✅ Complete - Successfully migrated from SharePoint to Supabase
 - **Architecture**: Single HTML file with embedded resources (per user preference)
 - **Backend**: Supabase PostgreSQL with real-time capabilities
@@ -47,7 +47,7 @@
 ### Key Features Implemented:
 - ✅ Complete authentication system with password recovery
   - Email/password login with secure token management
-  - Password reset workflow with email verification
+  - Password reset workflow with email verification and hash fragment support
   - User profile management
 - ✅ Multi-store management with user access control
   - Store selection dropdown with seamless switching
@@ -73,8 +73,9 @@
   - Visual notifications for sync events
 - ✅ PWA features with offline support
   - Local storage fallback
-  - Mobile-optimized responsive design
-  - Touch-friendly interface
+  - Mobile-optimized responsive design with enhanced touch targets (44px minimum)
+  - Touch-friendly interface with improved mobile button sizing and spacing
+  - Comprehensive mobile UI improvements for restaurant staff
 - ✅ Admin permissions and user management
   - Global permissions system
   - Admin settings panel
@@ -123,7 +124,7 @@
 
 ### Deployment:
 - **Static Hosting Compatible**: No server-side requirements
-- **Current Setup**: Local development environment
+- **Current Setup**: GitHub Pages deployment for production
 - **Production Ready**: Can deploy to any static web hosting service
 - **Environment**: Requires Supabase project URL and anon key
 
@@ -199,9 +200,20 @@ The project is initialized as a Git repository:
 - **Learning Notes**: `CRITICAL_LEARNING.md`
 - **Task History**: `docs/todo.md`
 
-## Recent Updates (v1.10.50)
+## Recent Updates (v1.10.51)
 
 ### Latest Session Accomplishments:
+- Comprehensive mobile responsiveness improvements for better restaurant staff UX
+- Enhanced touch-friendly button sizes with minimum 44px touch targets
+- Improved mobile text readability and optimized spacing for small screens
+- Optimized equipment card layouts and temperature logging forms for mobile
+- Enhanced modal responsiveness and navigation elements for mobile devices
+- Password reset token handling improvements for hash fragment support
+- Mobile-specific CSS optimizations including touch manipulation and larger icons
+
+## Previous Updates (v1.10.50)
+
+### Session Accomplishments:
 - Standardized edit/delete icons in Log Details Actions (replaced emoji with SVG icons)
 - Horizontally aligned Export PDF and Export Excel buttons with refresh button
 - Moved Refresh button back to right of To Date field while maintaining alignment

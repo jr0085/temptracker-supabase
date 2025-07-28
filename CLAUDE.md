@@ -29,7 +29,7 @@
 
 TempTracker Pro is a Progressive Web Application (PWA) for restaurant temperature monitoring with Supabase backend integration. The main application file is `working.html` - a standalone HTML file containing the complete application with embedded CSS, JavaScript, and Supabase integration.
 
-**Current Version:** 1.10.50
+**Current Version:** 1.10.51
 
 ## Key Project Files
 
@@ -141,7 +141,14 @@ TempTracker Pro is a Progressive Web Application (PWA) for restaurant temperatur
 
 ## Recent Development History
 
-- v1.10.50: Current stable Supabase-based version with UI enhancements (edit/delete icons standardization, horizontal button alignment, profile settings implementation plan, Claude Code hook fixes)
+- v1.10.51: Current stable Supabase-based version with comprehensive mobile responsiveness improvements
+  - Enhanced touch-friendly button sizes (minimum 44px touch targets)
+  - Improved mobile text readability and spacing
+  - Optimized equipment card layouts for mobile screens
+  - Enhanced modal responsiveness for mobile devices
+  - Password reset token handling for hash fragment support
+  - Mobile-specific CSS optimizations for better UX
+- v1.10.50: UI enhancements (edit/delete icons standardization, horizontal button alignment, profile settings implementation plan, Claude Code hook fixes)
 - v1.10.5: UI Inspector bug fixes (color picker event listeners, comprehensive logging, toggle functionality, real-time color updates)
 - v1.10.4: Critical bug fixes (infinite loop fix, permission validation, context menu reliability)
 - v1.10.3: Supabase-based version with debugging improvements (comprehensive logging for UI Inspector context menu troubleshooting)
@@ -172,3 +179,5 @@ TempTracker Pro is a Progressive Web Application (PWA) for restaurant temperatur
 - Single HTML file architecture maintained per user preference
 - Export functionality essential for regulatory compliance and record-keeping
 - Dark mode support for different lighting conditions in restaurant environments
+- Mobile responsiveness is critical for restaurant staff using tablets and phones
+- Password reset functionality includes hash fragment support for better email link handling
