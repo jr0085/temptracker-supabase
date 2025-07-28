@@ -1502,12 +1502,8 @@
                     </div>
                 </div>
                 
-                <div id="temperature-list" class="space-y-4">
-                    <!-- Temperature logging will be populated here -->
-                </div>
-                
-                <!-- Move bulk mode and history buttons below temperature logging -->
-                <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-3 mt-4">
+                <!-- Move bulk mode and history buttons below header, above equipment -->
+                <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-3 mt-4 mb-4">
                     <button onclick="toggleBulkMode()" id="bulk-mode-btn" class="btn-secondary min-h-[44px] touch-manipulation px-4 py-3">
                         <span class="hidden sm:inline">📝 Bulk Mode</span>
                         <span class="sm:hidden">📝 Bulk</span>
@@ -1516,6 +1512,10 @@
                         <span class="hidden sm:inline">📊 History</span>
                         <span class="sm:hidden">📊 History</span>
                     </button>
+                </div>
+                
+                <div id="temperature-list" class="space-y-4">
+                    <!-- Temperature logging will be populated here -->
                 </div>
                 
                 <div id="bulk-actions" class="hidden mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
