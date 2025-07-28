@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Temp Tracker Pro v1.10.50 | Cristy's Pizza</title>
+    <title>Temp Tracker Pro v1.10.51 | Cristy's Pizza</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.3/dist/umd/supabase.js"></script>
     <style>
@@ -19,6 +19,46 @@
         
         body.modal-open {
             overflow: hidden;
+        }
+        
+        /* Mobile touch optimizations */
+        .touch-manipulation {
+            touch-action: manipulation;
+        }
+        
+        /* Improve mobile text readability */
+        @media (max-width: 640px) {
+            h1, h2, h3 {
+                line-height: 1.2;
+            }
+            
+            /* Improve card spacing on mobile */
+            .space-y-4 > * + * {
+                margin-top: 1.5rem;
+            }
+            
+            /* Better mobile padding */
+            .glass-strong {
+                padding: 1.5rem;
+            }
+        }
+        
+        /* Ensure buttons have proper touch targets */
+        button, input[type="button"], input[type="number"] {
+            min-height: 44px;
+        }
+        
+        /* Mobile-specific button improvements */
+        @media (max-width: 640px) {
+            .glow-button {
+                font-size: 1rem;
+                font-weight: 600;
+            }
+            
+            .btn-secondary {
+                font-size: 0.95rem;
+                font-weight: 500;
+            }
         }
         
         body.dark { 
@@ -1351,7 +1391,7 @@
                     
                     <!-- Version Number (positioned below user dropdown in header) -->
                     <div class="text-xs text-gray-600 dark:text-gray-400 bg-transparent pr-4">
-                        v1.11.0
+                        v1.10.51
                     </div>
                 </div>
             </div>
@@ -1365,9 +1405,10 @@
             <div class="glass-strong rounded-3xl shadow-2xl p-8 floating">
                 <div class="flex items-center justify-between mb-4">
                     <h2 class="text-xl font-bold text-gray-900 dark:text-gray-100">Select Store Location</h2>
-                    <button onclick="openAddStoreModal()" class="glow-button text-white px-6 py-3 rounded-2xl font-semibold flex items-center space-x-2">
+                    <button onclick="openAddStoreModal()" class="glow-button text-white px-6 py-3 md:px-6 md:py-3 px-4 py-4 rounded-2xl font-semibold flex items-center space-x-2 min-h-[44px] touch-manipulation">
                         <span>➕</span>
-                        <span>Add Store</span>
+                        <span class="hidden sm:inline">Add Store</span>
+                        <span class="sm:hidden">Add</span>
                     </button>
                 </div>
                 
@@ -1391,7 +1432,7 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
                                 </svg>
                             </button>
-                            <button onclick="toggleDropdown()" class="glow-button text-white px-4 py-2 rounded-lg font-semibold" title="Select Store">
+                            <button onclick="toggleDropdown()" class="glow-button text-white px-4 py-3 md:px-4 md:py-2 rounded-lg font-semibold min-h-[44px] touch-manipulation" title="Select Store">
                                 📍 Select
                             </button>
                         </div>
@@ -1405,11 +1446,13 @@
         <div class="mb-8">
             <div class="glass-strong rounded-2xl shadow-xl p-2">
                 <div class="flex space-x-2">
-                    <button onclick="showSection('temperature')" id="temp-tab" class="flex-1 px-6 py-3 rounded-lg font-semibold transition-colors">
-                        🌡️ Temperature Log
+                    <button onclick="showSection('temperature')" id="temp-tab" class="flex-1 px-4 py-4 md:px-6 md:py-3 rounded-lg font-semibold transition-colors min-h-[44px] touch-manipulation">
+                        <span class="hidden sm:inline">🌡️ Temperature Log</span>
+                        <span class="sm:hidden">🌡️ Temp Log</span>
                     </button>
-                    <button onclick="showSection('equipment')" id="equipment-tab" class="flex-1 px-6 py-3 rounded-lg font-semibold transition-colors text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100">
-                        ⚙️ Equipment
+                    <button onclick="showSection('equipment')" id="equipment-tab" class="flex-1 px-4 py-4 md:px-6 md:py-3 rounded-lg font-semibold transition-colors text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 min-h-[44px] touch-manipulation">
+                        <span class="hidden sm:inline">⚙️ Equipment</span>
+                        <span class="sm:hidden">⚙️ Equipment</span>
                     </button>
                 </div>
             </div>
@@ -1418,7 +1461,7 @@
         <!-- Temperature Logging -->
         <div class="mb-8" id="temperature-section" style="display: none;">
             <div class="glass-strong rounded-3xl shadow-2xl p-8">
-                <div class="flex items-center justify-between mb-6">
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 gap-4">
                     <div class="flex items-center space-x-3">
                         <div class="p-2 rounded-lg" style="background: linear-gradient(135deg, rgb(58, 109, 55), rgb(46, 87, 44));">
                             <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -1430,12 +1473,14 @@
                             <p class="text-sm text-gray-600 dark:text-gray-300" id="selected-store-temperature">Log temperatures for equipment</p>
                         </div>
                     </div>
-                    <div class="flex space-x-3">
-                        <button onclick="toggleBulkMode()" id="bulk-mode-btn" class="btn-secondary">
-                            📝 Bulk Mode
+                    <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-3">
+                        <button onclick="toggleBulkMode()" id="bulk-mode-btn" class="btn-secondary min-h-[44px] touch-manipulation px-4 py-3">
+                            <span class="hidden sm:inline">📝 Bulk Mode</span>
+                            <span class="sm:hidden">📝 Bulk</span>
                         </button>
-                        <button onclick="openTemperatureHistory()" class="btn-secondary">
-                            📊 History
+                        <button onclick="openTemperatureHistory()" class="btn-secondary min-h-[44px] touch-manipulation px-4 py-3">
+                            <span class="hidden sm:inline">📊 History</span>
+                            <span class="sm:hidden">📊 History</span>
                         </button>
                     </div>
                 </div>
@@ -1464,7 +1509,7 @@
         <!-- Equipment Management -->
         <div class="mb-8" id="equipment-section" style="display: none;">
             <div class="glass-strong rounded-3xl shadow-2xl p-8">
-                <div class="flex items-center justify-between mb-6">
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 gap-4">
                     <div class="flex items-center space-x-3">
                         <div class="p-2 rounded-lg" style="background: linear-gradient(135deg, rgb(58, 109, 55), rgb(46, 87, 44));">
                             <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -1476,9 +1521,10 @@
                             <p class="text-sm text-gray-600 dark:text-gray-300" id="selected-store-equipment">Select a store to manage equipment</p>
                         </div>
                     </div>
-                    <button onclick="openEquipmentModal('add')" class="glow-button text-white px-6 py-3 rounded-2xl font-semibold flex items-center space-x-2">
+                    <button onclick="openEquipmentModal('add')" class="glow-button text-white px-4 py-4 md:px-6 md:py-3 rounded-2xl font-semibold flex items-center justify-center space-x-2 min-h-[44px] touch-manipulation w-full sm:w-auto">
                         <span>➕</span>
-                        <span>Add Equipment</span>
+                        <span class="hidden sm:inline">Add Equipment</span>
+                        <span class="sm:hidden">Add Equipment</span>
                     </button>
                 </div>
                 
@@ -4479,16 +4525,16 @@
                 const glowClass = getStatusGlowClass(status);
                 
                 return `
-                <div class="glass rounded-xl p-4 flex items-center justify-between card-hover ${glowClass} transition-all duration-300" 
+                <div class="glass rounded-xl p-4 flex flex-col sm:flex-row sm:items-center justify-between card-hover ${glowClass} transition-all duration-300 gap-4 sm:gap-0" 
                      draggable="true" 
                      data-index="${index}"
                      ondragstart="handleEquipmentDragStart(event)"
                      ondragover="handleEquipmentDragOver(event)"
                      ondrop="handleEquipmentDrop(event)"
                      ondragend="handleEquipmentDragEnd(event)">
-                    <div class="flex items-center space-x-4">
-                        <div class="cursor-grab active:cursor-grabbing p-1 hover:bg-gray-100 rounded-lg transition-colors" title="Drag to reorder">
-                            <svg class="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="flex items-center space-x-4 flex-1">
+                        <div class="cursor-grab active:cursor-grabbing p-1 hover:bg-gray-100 rounded-lg transition-colors touch-manipulation" title="Drag to reorder">
+                            <svg class="h-5 w-5 sm:h-4 sm:w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h16M4 16h16"></path>
                             </svg>
                         </div>
@@ -4496,30 +4542,30 @@
                             ${eq.photo ? `<img src="${eq.photo}" alt="${eq.name}" class="w-12 h-12 rounded-lg object-cover">` : getEquipmentIcon(eq.type)}
                         </div>
                         <div class="flex-1">
-                            <h3 class="font-bold text-gray-900">${eq.name}</h3>
+                            <h3 class="font-bold text-gray-900 text-lg sm:text-base">${eq.name}</h3>
                             <p class="text-sm text-gray-600">${eq.location || 'No location set'}</p>
                             <p class="text-xs text-gray-500">Target: ${eq.min_temp}°F to ${eq.max_temp}°F</p>
                             ${lastLog ? `<p class="text-xs text-gray-400 mt-1">Last: ${lastLog.temperature}°F (${formatTimeAgo(lastLog.logged_at)})</p>` : ''}
                         </div>
                     </div>
-                    <div class="flex items-center space-x-3">
+                    <div class="flex items-center justify-between sm:justify-center space-x-3 sm:space-x-3">
                         <div class="text-center">
                             <div class="mb-1">${statusIcon}</div>
                             <div class="text-xs font-medium" style="color: ${statusColor};">Status</div>
                         </div>
                         <div class="flex items-center space-x-2">
-                            <button onclick="openEquipmentHistoryModal('${eq.id}')" class="p-2 hover:bg-gray-100 rounded-lg transition-colors" title="View Temperature History">
-                                <svg class="h-4 w-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <button onclick="openEquipmentHistoryModal('${eq.id}')" class="p-3 sm:p-2 hover:bg-gray-100 rounded-lg transition-colors touch-manipulation min-h-[44px] min-w-[44px] sm:min-h-auto sm:min-w-auto flex items-center justify-center" title="View Temperature History">
+                                <svg class="h-5 w-5 sm:h-4 sm:w-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
                                 </svg>
                             </button>
-                            <button onclick="openEquipmentModal('edit', '${eq.id}')" class="p-2 hover:bg-gray-100 rounded-lg transition-colors" title="Edit Equipment">
-                                <svg class="h-4 w-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <button onclick="openEquipmentModal('edit', '${eq.id}')" class="p-3 sm:p-2 hover:bg-gray-100 rounded-lg transition-colors touch-manipulation min-h-[44px] min-w-[44px] sm:min-h-auto sm:min-w-auto flex items-center justify-center" title="Edit Equipment">
+                                <svg class="h-5 w-5 sm:h-4 sm:w-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
                                 </svg>
                             </button>
-                            <button onclick="deleteEquipment('${eq.id}')" class="p-2 hover:bg-red-100 rounded-lg transition-colors" title="Delete Equipment">
-                                <svg class="h-4 w-4 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <button onclick="deleteEquipment('${eq.id}')" class="p-3 sm:p-2 hover:bg-red-100 rounded-lg transition-colors touch-manipulation min-h-[44px] min-w-[44px] sm:min-h-auto sm:min-w-auto flex items-center justify-center" title="Delete Equipment">
+                                <svg class="h-5 w-5 sm:h-4 sm:w-4 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
                                 </svg>
                             </button>
@@ -5526,19 +5572,19 @@
                 const glowClass = getStatusGlowClass(status);
                 
                 return `
-                    <div class="glass rounded-xl p-4 flex items-center justify-between card-hover ${glowClass} transition-all duration-300">
-                        <div class="flex items-center space-x-4">
+                    <div class="glass rounded-xl p-4 flex flex-col sm:flex-row sm:items-center justify-between card-hover ${glowClass} transition-all duration-300 gap-4 sm:gap-0">
+                        <div class="flex items-center space-x-4 flex-1">
                             <div class="p-2 rounded-lg ${eq.photo ? 'p-0' : ''}" style="background: ${eq.photo ? 'transparent' : `linear-gradient(135deg, ${getEquipmentColor(eq.type)})`};">
                                 ${eq.photo ? `<img src="${eq.photo}" alt="${eq.name}" class="w-12 h-12 rounded-lg object-cover">` : getEquipmentIcon(eq.type)}
                             </div>
                             <div class="flex-1">
-                                <h3 class="font-bold text-gray-900">${eq.name}</h3>
+                                <h3 class="font-bold text-gray-900 text-lg sm:text-base">${eq.name}</h3>
                                 <p class="text-sm text-gray-600">${eq.location || 'No location set'}</p>
                                 <p class="text-xs text-gray-500">Target: ${eq.min_temp}°F to ${eq.max_temp}°F</p>
                                 ${lastLog ? `<p class="text-xs text-gray-400 mt-1">Last: ${lastLog.temperature}°F (${formatTimeAgo(lastLog.logged_at)})</p>` : ''}
                             </div>
                         </div>
-                        <div class="flex items-center space-x-3">
+                        <div class="flex items-center justify-between sm:justify-center space-x-3 sm:space-x-3">
                             <div class="text-center">
                                 <div class="mb-1">${statusIcon}</div>
                                 <div class="text-xs font-medium" style="color: ${statusColor};">Status</div>
@@ -5548,12 +5594,12 @@
                                        id="temp-${eq.id}" 
                                        placeholder="Temp"
                                        step="0.1"
-                                       class="w-20 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-center"
+                                       class="w-24 sm:w-20 px-3 py-3 sm:py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-center min-h-[44px] touch-manipulation text-lg sm:text-base"
                                        onchange="updateBulkTemperature('${eq.id}', this.value)"
                                        onblur="updateTemperatureVisualFeedback('${eq.id}', this.value)"
                                        onkeypress="handleBulkTemperatureKeypress(event, '${eq.id}')">
                             ` : `
-                                <button onclick="openTemperatureModal('${eq.id}')" class="glow-button text-white px-4 py-2 rounded-lg font-semibold">
+                                <button onclick="openTemperatureModal('${eq.id}')" class="glow-button text-white px-6 py-3 sm:px-4 sm:py-2 rounded-lg font-semibold min-h-[44px] touch-manipulation text-base">
                                     🌡️ Log
                                 </button>
                             `}
@@ -6903,7 +6949,7 @@
 
         // Initialize everything
         document.addEventListener('DOMContentLoaded', async function() {
-            console.log('🌡️ Temp Tracker Pro v1.10.50 loaded successfully!');
+            console.log('🌡️ Temp Tracker Pro v1.10.51 loaded successfully!');
             loadDarkModePreference();
             
             // Load stores first (needed for signup form)
