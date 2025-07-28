@@ -270,10 +270,17 @@
         
         /* Mobile-specific improvements */
         @media (max-width: 768px) {
-            /* Reduce header font size on mobile */
+            /* Reduce header font size and icon by 50% on mobile */
             h1.text-3xl {
-                font-size: 1.5rem !important; /* text-2xl equivalent */
-                line-height: 1.5 !important;
+                font-size: 1.125rem !important; /* 50% reduction from text-3xl */
+                line-height: 1.4 !important;
+            }
+            
+            /* Reduce header icon size by 50% */
+            .header-icon {
+                font-size: 1.5rem !important; /* 50% of original size */
+                width: 2rem !important;
+                height: 2rem !important;
             }
             
             /* Reduce card padding on mobile */
@@ -1368,7 +1375,7 @@
             <div class="flex items-center justify-between">
                 <div class="flex items-center space-x-4">
                     <div class="p-3 rounded-xl shadow-lg" style="background: linear-gradient(135deg, rgb(58, 109, 55), rgb(46, 87, 44));">
-                        <svg class="h-8 w-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg class="h-8 w-8 text-white header-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
                         </svg>
                     </div>
