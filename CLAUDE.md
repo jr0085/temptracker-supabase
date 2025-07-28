@@ -12,126 +12,125 @@
 6. Make every task and code change you do as simple as possible. We want to avoid making any massive or complex changes. Every change should impact as little code as possible. Everything is about simplicity.
 7. Finally, add a review section to the [todo.md] file with a summary of the changes you made and any other relevant information.
 
+
 ## Essential Reference Documents
 
 **READ these files before making any significant changes:**
 
-- **`SHAREPOINT_PWA_IMPLEMENTATION_GUIDE.md`** - Complete setup and development approach with proven patterns
-- **`SHAREPOINT_PWA_QUICK_REFERENCE.md`** - Fast setup checklist and condensed reference
-- **`SHAREPOINT_PWA_TROUBLESHOOTING.md`** - Common issues and solutions from real-world experience
-- **`SharePointListSetup.md`** - SharePoint list creation and configuration details
-- **`ENTRA_ID_SETUP.md`** - Azure/Entra ID app registration and permission setup
-- **`DEPLOYMENT.md`** - Production deployment procedures and considerations
+- **`DATABASE_SETUP.md`** - Supabase database setup and configuration instructions
+- **`SUPABASE_MIGRATION.md`** - Complete migration documentation from SharePoint to Supabase
+- **`ARCHITECTURE_DECISION_RECORD.md`** - Architectural decisions and rationale
+- **`CRITICAL_LEARNING.md`** - Important development lessons and debugging patterns
+- **`admin-permissions-plan.md`** - Admin system implementation roadmap
+- **`docs/todo.md`** - Task history and development progress tracking
+- **`docs/SESSION_CONTEXT_REVIEW.md`** - Context establishment and architecture decisions
 
 ## Project Overview
 
-TempTracker Pro is a Progressive Web Application (PWA) for restaurant temperature monitoring with SharePoint integration. The main application file is located at `netlify-real-app/index.html` - a standalone HTML file containing the complete React-like application.
+TempTracker Pro is a Progressive Web Application (PWA) for restaurant temperature monitoring with Supabase backend integration. The main application file is `working.html` - a standalone HTML file containing the complete application with embedded CSS, JavaScript, and Supabase integration.
 
-**Current Version:** 2.5.913
+**Current Version:** 1.10.50
 
 ## Key Project Files
 
-- **Main App:** `netlify-real-app/index.html` - Complete standalone PWA application
-- **Service Worker:** `netlify-real-app/sw.js` - Offline functionality and caching
-- **Deployment:** Files are deployed to Netlify at https://sensational-caramel-e44989.netlify.app/
-- **SharePoint Integration:** Uses SharePoint Online REST API with MSAL 3.5.0 authentication
+- **Main App:** `working.html` - Complete standalone PWA application with embedded CSS/JavaScript
+- **Database Schema:** `database/` folder contains SQL files for Supabase setup
+- **Documentation:** `docs/` folder contains implementation guides and development history
+- **Current Deployment:** Local development, ready for hosting on any static web server
 
 ## Architecture & Technical Details
 
 ### Authentication
-- **MSAL 3.5.0** with Authorization Code Flow + PKCE
-- **Scope:** `https://cristyspizza.sharepoint.com/.default`
-- **Login Methods:** Both popup and redirect supported
+- **Supabase Auth** with email/password authentication
+- **Password Reset:** Complete forgot-password workflow with email links
+- **User Profiles:** Comprehensive user management with store associations
+- **Multi-Store Access:** Users can belong to multiple store locations
 - **Critical:** Never break working authentication - user has emphasized this multiple times
 
-### SharePoint Lists
-- **Stores:** `TempTracker_Stores`
-- **Equipment:** `TempTracker_Equipment`
-- **Temperature Logs:** `TempTracker_TemperatureLogs`
-- **Images:** `TempTracker_EquipmentImages`
+### Database Tables (Supabase PostgreSQL)
+- **user_profiles:** User information and preferences
+- **user_store_access:** Multi-store permission management
+- **stores:** Store locations and details
+- **equipment:** Temperature monitoring equipment
+- **temperature_logs:** All temperature readings with user tracking
+- **global_permissions:** Admin permission system for advanced features
 
 ### Data Synchronization
-- **Enhanced Polling:** Every 45 seconds with change tracking
-- **Page Visibility API:** Immediate refresh when tab becomes visible
-- **Manual Refresh:** Available in hamburger menu
-- **Change Detection:** Uses SharePoint `Modified` field with OData filters
+- **Real-time Updates:** Supabase real-time subscriptions for cross-device sync
+- **Offline Support:** PWA functionality with local storage fallback
+- **Cross-Device Notifications:** Immediate updates when data changes on other devices
 
 ## Version Management
 
 **🚨 CRITICAL - EXTREMELY IMPORTANT:** Always increment version in ALL locations when making changes:
-- HTML title tag (`<title>TempTracker Pro v2.5.XXX</title>`)
-- Main heading (h1) (`<h1>TempTracker Pro v2.5.XXX</h1>`)
-- Console log message (`console.log('🌡️ TempTracker Pro v2.5.XXX loaded successfully!')`)
-- Flyout menu version display (`v2.5.XXX - TempTracker Pro`)
-- Manifest link (`href="./manifest.json?v=2.5.XXX"`)
-- Service worker registration (`navigator.serviceWorker.register('./sw.js?v=2.5.XXX')`)
-- Service worker cache names (all 3 in sw.js file):
-  - `CACHE_NAME = 'temptracker-pro-v2.5.XXX'`
-  - `STATIC_CACHE_NAME = 'temptracker-static-v2.5.XXX'`
-  - `DYNAMIC_CACHE_NAME = 'temptracker-dynamic-v2.5.XXX'`
+- HTML title tag (`<title>TempTracker Pro v1.X.X | Cristy's Pizza</title>`)
+- Console log message (`console.log('🌡️ TempTracker Pro v1.X.X loaded successfully!')`)
+- Header version display in working.html
+- Any version references in comments or documentation
 
-**⚠️ WARNING:** Failing to update ALL version locations will cause caching issues and prevent users from seeing updates!
+**Current Version Pattern:** 1.X.X (Supabase-based architecture)
+
+**⚠️ WARNING:** Failing to update ALL version locations will cause confusion about which version is running!
 
 ## Development Conventions
 
 ### Code Style
 - **No comments** unless explicitly requested
 - **Global functions** using `window.functionName` pattern for onclick handlers
-- **Async/await** for all SharePoint operations
+- **Async/await** for all Supabase database operations
 - **Error handling** with try/catch and user notifications
 - **Console logging** with emojis for better debugging
 
-### SharePoint Integration
-- Always check for `accessToken && sharePointService` before SharePoint operations
-- Provide fallback notifications for SharePoint failures
-- Use proper SharePoint REST API endpoints with authentication headers
+### Supabase Integration
+- Always check for authenticated user before database operations
+- Provide fallback notifications for database failures
+- Use proper Supabase client methods with error handling
 - Handle both online and offline scenarios gracefully
 
 ### Image Handling
-- Use authenticated SharePoint REST API endpoints (not direct URLs)
+- Use authenticated Supabase storage for equipment images
 - Cache images as blob URLs to avoid repeated API calls
-- Handle CORS restrictions by using `/_api/web/lists/.../Files('filename')/$value`
+- Implement proper image upload and deletion workflows
 
 ### UI Updates
-- Always call `saveData()` and `updateUI()` after data changes
-- Show appropriate notifications with emojis (🔗 for SharePoint sync, 📱 for cross-device updates)
+- Always call `updateUI()` after data changes
+- Show appropriate notifications with emojis (🔗 for database sync, 📱 for cross-device updates)
 - Use consistent color coding (green for success, yellow for warnings, red for errors)
 
 ## Common Tasks
 
-### Build/Test Commands
-- **Lint:** `npm run lint` (if available)
-- **Type Check:** `npm run typecheck` (if available)
-- **Test:** Check for test scripts in package.json
+### Development
+- **Local Testing:** Open `working.html` in browser with live server
+- **Database Testing:** Use Supabase dashboard for data verification
+- **Authentication Testing:** Use browser dev tools to inspect auth state
 
 ### Deployment
 1. Update version in all locations
-2. Deploy to Netlify
-3. Clear browser cache/service worker if needed
-4. Test in private browser window
+2. Deploy `working.html` to any static web hosting service
+3. Configure Supabase environment variables if needed
+4. Test in private browser window to verify changes
 
 ## Known Issues & Patterns
 
-### Service Worker Caching
-- Browsers aggressively cache service workers
-- Version changes in cache names should force updates
-- Users may need to clear browser cache for immediate updates
+### Browser Caching
+- Browsers may cache HTML file
+- Hard refresh (Ctrl+F5) may be needed to see updates
+- Version changes help users identify current version
 
 ### Function Scoping
 - All onclick handler functions must be globally accessible (`window.functionName`)
 - Async functions in onclick handlers require proper error handling
 
-### SharePoint Sync Patterns
-- Individual temperature logging: Uses `sharePointService.createTemperatureLog()`
-- Bulk temperature logging: Loops through each entry with SharePoint sync
-- Equipment updates: Uses `sharePointService.updateEquipment()`
-- Image handling: Upload, then delete old if different
+### Supabase Sync Patterns
+- Individual temperature logging: Direct Supabase insert operations
+- Bulk temperature logging: Sequential database operations with error handling
+- Equipment updates: CRUD operations through Supabase client
+- Image handling: Supabase storage integration
 
 ### Cross-Device Synchronization
-- Enhanced polling checks for changes every 45 seconds
-- Only performs full sync when changes detected
-- Page visibility API provides immediate updates on tab focus
-- Shows subtle notifications for cross-device updates
+- Real-time subscriptions for immediate updates
+- Supabase real-time capabilities handle cross-device sync
+- Shows notifications for data changes from other devices
 
 ## User Preferences
 
@@ -142,10 +141,27 @@ TempTracker Pro is a Progressive Web Application (PWA) for restaurant temperatur
 
 ## Recent Development History
 
-- v2.5.913: Enhanced cross-device synchronization with change tracking
-- v2.5.912: SharePoint temperature log editing/deletion, image removal fixes
-- v2.5.911: Individual temperature logging SharePoint sync fixes
-- v2.5.910: Periodic refresh, bulk logging SharePoint sync
+- v1.10.50: Current stable Supabase-based version with UI enhancements (edit/delete icons standardization, horizontal button alignment, profile settings implementation plan, Claude Code hook fixes)
+- v1.10.5: UI Inspector bug fixes (color picker event listeners, comprehensive logging, toggle functionality, real-time color updates)
+- v1.10.4: Critical bug fixes (infinite loop fix, permission validation, context menu reliability)
+- v1.10.3: Supabase-based version with debugging improvements (comprehensive logging for UI Inspector context menu troubleshooting)
+- v1.10.2: Supabase-based version with full feature set (bug fix: UI Inspector permission auto-creation and debugging)
+- v1.10.1: Supabase-based version with full feature set (bug fix: restored Admin Settings button)
+  - Complete authentication with password reset functionality
+  - Multi-store management with user access control
+  - Equipment management with image support and reordering
+  - Temperature logging with validation and status indicators
+  - PDF and Excel export functionality for compliance reporting
+  - Dark mode support with persistent user preference
+  - Admin settings panel for permission management
+  - Real-time cross-device synchronization
+- v1.7.8-v1.7.9: Export functionality and UI improvements
+  - Added jsPDF and SheetJS libraries for document generation
+  - Implemented comprehensive PDF export with statistics
+  - Added Excel export with formatted data sheets
+  - Fixed z-index issues with dropdown menus
+- v1.6.x: Authentication system implementation and user management
+- Migration: Successfully transitioned from SharePoint to modern Supabase architecture
 
 ## Notes
 
@@ -153,3 +169,6 @@ TempTracker Pro is a Progressive Web Application (PWA) for restaurant temperatur
 - Temperature monitoring is critical for food safety compliance
 - Application serves restaurant environments with multiple staff members
 - Performance and battery efficiency considerations for mobile devices
+- Single HTML file architecture maintained per user preference
+- Export functionality essential for regulatory compliance and record-keeping
+- Dark mode support for different lighting conditions in restaurant environments
