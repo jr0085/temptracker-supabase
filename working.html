@@ -268,6 +268,26 @@
             color: #f9fafb !important;
         }
         
+        /* Mobile-specific improvements */
+        @media (max-width: 768px) {
+            /* Reduce header font size on mobile */
+            h1.text-3xl {
+                font-size: 1.5rem !important; /* text-2xl equivalent */
+                line-height: 1.5 !important;
+            }
+            
+            /* Reduce card padding on mobile */
+            .equipment-card, .p-6 {
+                padding: 0.75rem !important; /* p-3 equivalent */
+            }
+            
+            /* Hide Select button on mobile */
+            .store-select-btn {
+                display: none !important;
+            }
+            
+        }
+        
         /* Text contrast improvements - Headers and important text */
         
         /* Main header text - TempTracker Pro and subtitle */
@@ -1432,7 +1452,7 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
                                 </svg>
                             </button>
-                            <button onclick="toggleDropdown()" class="glow-button text-white px-4 py-3 md:px-4 md:py-2 rounded-lg font-semibold min-h-[44px] touch-manipulation" title="Select Store">
+                            <button onclick="toggleDropdown()" class="glow-button text-white px-4 py-3 md:px-4 md:py-2 rounded-lg font-semibold min-h-[44px] touch-manipulation store-select-btn" title="Select Store">
                                 📍 Select
                             </button>
                         </div>
@@ -1473,20 +1493,22 @@
                             <p class="text-sm text-gray-600 dark:text-gray-300" id="selected-store-temperature">Log temperatures for equipment</p>
                         </div>
                     </div>
-                    <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-3">
-                        <button onclick="toggleBulkMode()" id="bulk-mode-btn" class="btn-secondary min-h-[44px] touch-manipulation px-4 py-3">
-                            <span class="hidden sm:inline">📝 Bulk Mode</span>
-                            <span class="sm:hidden">📝 Bulk</span>
-                        </button>
-                        <button onclick="openTemperatureHistory()" class="btn-secondary min-h-[44px] touch-manipulation px-4 py-3">
-                            <span class="hidden sm:inline">📊 History</span>
-                            <span class="sm:hidden">📊 History</span>
-                        </button>
-                    </div>
                 </div>
                 
                 <div id="temperature-list" class="space-y-4">
                     <!-- Temperature logging will be populated here -->
+                </div>
+                
+                <!-- Move bulk mode and history buttons below temperature logging -->
+                <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-3 mt-4">
+                    <button onclick="toggleBulkMode()" id="bulk-mode-btn" class="btn-secondary min-h-[44px] touch-manipulation px-4 py-3">
+                        <span class="hidden sm:inline">📝 Bulk Mode</span>
+                        <span class="sm:hidden">📝 Bulk</span>
+                    </button>
+                    <button onclick="openTemperatureHistory()" class="btn-secondary min-h-[44px] touch-manipulation px-4 py-3">
+                        <span class="hidden sm:inline">📊 History</span>
+                        <span class="sm:hidden">📊 History</span>
+                    </button>
                 </div>
                 
                 <div id="bulk-actions" class="hidden mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
