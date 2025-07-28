@@ -3732,7 +3732,7 @@
             document.getElementById('password-reset-form').reset();
         }
 
-        async function handlePasswordReset(event) {
+        async function handleNewPasswordSubmit(event) {
             event.preventDefault();
             
             const newPassword = document.getElementById('new-password').value;
@@ -6899,7 +6899,7 @@
             // Add password reset form event listener
             const passwordResetForm = document.getElementById('password-reset-form');
             if (passwordResetForm) {
-                passwordResetForm.addEventListener('submit', handlePasswordReset);
+                passwordResetForm.addEventListener('submit', handleNewPasswordSubmit);
             }
         });
 
