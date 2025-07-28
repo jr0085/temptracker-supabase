@@ -2764,7 +2764,7 @@
                 updateStatus('Sending reset link...');
                 
                 const { error } = await supabase.auth.resetPasswordForEmail(email, {
-                    redirectTo: window.location.origin + '/reset-password.html'
+                    redirectTo: window.location.origin + '/temptracker-supabase/reset-password.html'
                 });
                 
                 if (error) throw error;
@@ -3710,7 +3710,7 @@
             
             try {
                 const { error } = await supabase.auth.resetPasswordForEmail(currentUser.email, {
-                    redirectTo: window.location.origin + '/reset-password.html'
+                    redirectTo: window.location.origin + '/temptracker-supabase/reset-password.html'
                 });
 
                 if (error) throw error;
