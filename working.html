@@ -3787,7 +3787,14 @@
         }
 
         function showPasswordResetPage() {
-            document.getElementById('password-reset-page').classList.remove('hidden');
+            console.log('🔓 Opening password reset modal...');
+            const modal = document.getElementById('password-reset-page');
+            if (modal) {
+                modal.classList.remove('hidden');
+                console.log('✅ Password reset modal opened');
+            } else {
+                console.error('❌ Password reset modal not found!');
+            }
         }
 
         function closePasswordResetPage() {
@@ -3853,12 +3860,14 @@
                     refresh_token: refreshToken
                 }).then(({ data, error }) => {
                     if (!error && data.user) {
-                        console.log('🔑 Password reset token verified');
+                        console.log('🔑 Password reset token verified successfully');
+                        console.log('👤 User logged in:', data.user.email);
+                        console.log('🔄 About to show password reset modal...');
                         showPasswordResetPage();
                         // Clear the URL parameters
                         window.history.replaceState({}, document.title, window.location.pathname);
                     } else {
-                        console.error('Token verification failed:', error);
+                        console.error('❌ Token verification failed:', error);
                         showNotification('Invalid or expired reset link. Please request a new password reset.', 'error');
                     }
                 });
