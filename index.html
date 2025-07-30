@@ -7,7 +7,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="theme-color" content="#059669">
-    <title>Temp Tracker Pro v1.10.60 | Cristy's Pizza</title>
+    <title>Temp Tracker Pro v1.10.61 | Cristy's Pizza</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.3/dist/umd/supabase.js"></script>
     <style>
@@ -983,34 +983,62 @@
                 display: none !important;
             }
             
+            /* Reduce space between title and profile picture section */
+            #profile-settings-modal .flex.items-center.justify-between {
+                margin-bottom: 0.75rem !important; /* Reduced from mb-6 */
+            }
+            
             /* Smaller profile picture on mobile */
             #profile-settings-modal #profile-avatar {
-                width: 4rem !important; /* 16 -> 4rem (64px -> 16px) */
+                width: 4rem !important; /* Smaller profile picture */
                 height: 4rem !important;
                 font-size: 1rem !important; /* Smaller initials text */
             }
             
-            /* Profile picture section - mobile layout */
+            /* Profile picture section - restructured mobile layout */
             #profile-settings-modal .mb-8:first-of-type {
-                text-align: center !important;
+                margin-bottom: 1rem !important; /* Reduced spacing */
             }
             
+            /* First line: Profile picture + title + description inline */
             #profile-settings-modal .mb-8:first-of-type .flex.items-center.space-x-4 {
-                flex-direction: column !important;
+                flex-direction: row !important; /* Keep horizontal */
                 align-items: center !important;
-                space-x: 0 !important;
-                gap: 1rem !important;
+                gap: 0.75rem !important;
+                margin-bottom: 0.75rem !important;
             }
             
-            /* Move buttons below profile picture on mobile */
+            /* Profile picture container - smaller on mobile */
+            #profile-settings-modal .mb-8:first-of-type .relative {
+                flex-shrink: 0 !important;
+            }
+            
+            /* Text content - title and description inline */
             #profile-settings-modal .mb-8:first-of-type .flex-1 {
-                width: 100% !important; 
-                text-align: center !important;
+                text-align: left !important;
             }
             
+            #profile-settings-modal .mb-8:first-of-type .flex-1 h4 {
+                font-size: 0.95rem !important; /* Slightly smaller title */
+                margin-bottom: 0.25rem !important;
+            }
+            
+            #profile-settings-modal .mb-8:first-of-type .flex-1 p {
+                font-size: 0.8rem !important; /* Smaller description */
+                margin-bottom: 0 !important;
+            }
+            
+            /* Second line: Camera and upload buttons full width below */
             #profile-settings-modal .mb-8:first-of-type .flex.space-x-2 {
+                margin-top: 0 !important;
+                width: 100% !important;
                 justify-content: center !important;
-                margin-top: 1rem !important;
+                gap: 0.5rem !important;
+            }
+            
+            #profile-settings-modal .mb-8:first-of-type .flex.space-x-2 button {
+                flex: 1 !important;
+                max-width: 8rem !important;
             }
             
             /* Remove the absolute positioned camera button on mobile */
@@ -1018,20 +1046,42 @@
                 display: none !important;
             }
             
-            /* Ensure tabs are fully visible and scrollable */
+            /* Reduce space between tabs and ensure they're scrollable */
+            #profile-settings-modal .border-b.border-gray-200 {
+                margin-bottom: 0.75rem !important; /* Reduced from mb-6 */
+            }
+            
             #profile-settings-modal .flex.space-x-8 {
                 flex-wrap: nowrap !important;
                 overflow-x: auto !important;
                 -webkit-overflow-scrolling: touch !important;
                 padding-bottom: 0.5rem !important;
-                margin-bottom: 1rem !important;
+                margin-bottom: 0.5rem !important; /* Reduced spacing */
+                gap: 1.5rem !important; /* Reduced from space-x-8 */
             }
             
-            /* Make sure profile content area is properly scrollable */
-            #profile-settings-modal .mt-8 {
+            /* Fix scrolling for all tab content areas */
+            #profile-settings-modal #profile-tab-content {
                 height: auto !important;
-                max-height: none !important;
+                max-height: calc(100vh - 12rem) !important; /* Set max height for scrolling */
+                overflow-y: auto !important;
+                overflow-x: hidden !important;
+                -webkit-overflow-scrolling: touch !important;
+            }
+            
+            /* Ensure all tab content sections are scrollable */
+            #profile-settings-modal .profile-tab-content {
+                height: auto !important;
+                min-height: 0 !important;
                 overflow: visible !important;
+            }
+            
+            /* Specific fixes for individual tab content */
+            #profile-settings-modal #tab-content-personal,
+            #profile-settings-modal #tab-content-preferences,
+            #profile-settings-modal #tab-content-security,
+            #profile-settings-modal #tab-content-stores {
+                padding-bottom: 2rem !important; /* Add bottom padding for better scrolling */
             }
             
             #profile-settings-modal h3 {
@@ -1860,7 +1910,7 @@
                     
                     <!-- Version Number (positioned below user dropdown in header) -->
                     <div class="text-xs text-gray-600 dark:text-gray-400 bg-transparent pr-4">
-                        v1.10.60
+                        v1.10.61
                     </div>
                 </div>
             </div>
@@ -7619,7 +7669,7 @@
 
         // Initialize everything
         document.addEventListener('DOMContentLoaded', async function() {
-            console.log('🌡️ TempTracker Pro v1.10.60 loaded successfully!');
+            console.log('🌡️ TempTracker Pro v1.10.61 loaded successfully!');
             loadDarkModePreference();
             
             // Request fullscreen on mobile devices
