@@ -20,7 +20,7 @@ try {
 const htmlFile = `file://${path.resolve('index.html')}`;
 
 (async () => {
-  console.log('🧪 Starting TempTracker Pro v1.10.61 Tests...');
+  console.log('🧪 Starting TempTracker Pro v1.10.62 Tests...');
   
   const browser = await chromium.launch({ headless: true });
   const page = await browser.newPage();
@@ -32,7 +32,7 @@ const htmlFile = `file://${path.resolve('index.html')}`;
     await page.waitForLoadState('networkidle');
     
     const title = await page.title();
-    assert(title.includes('v1.10.61'), `Title should contain v1.10.61, got: ${title}`);
+    assert(title.includes('v1.10.62'), `Title should contain v1.10.62, got: ${title}`);
     console.log('✅ Version test passed!');
     
     // Test 2: Check PWA meta tags
@@ -71,7 +71,7 @@ const htmlFile = `file://${path.resolve('index.html')}`;
     
     console.log('✅ Mobile viewport test passed!');
     
-    console.log('🎉 All TempTracker Pro v1.10.61 tests passed!');
+    console.log('🎉 All TempTracker Pro v1.10.62 tests passed!');
     
   } catch (error) {
     console.error('❌ Test failed:', error.message);

@@ -7,7 +7,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="theme-color" content="#059669">
-    <title>Temp Tracker Pro v1.10.61 | Cristy's Pizza</title>
+    <title>Temp Tracker Pro v1.10.62 | Cristy's Pizza</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.3/dist/umd/supabase.js"></script>
     <style>
@@ -272,55 +272,73 @@
             color: #f9fafb !important;
         }
         
-        /* Mobile-specific improvements */
-        @media (max-width: 768px) {
-            /* General font size reduction by 5% for mobile (was 20%, increased by 15%) */
-            body, p, span, div, button, input, select, textarea, label {
-                font-size: 0.95em !important;
-            }
+        /* Automatic Responsive Scaling System */
+        :root {
+            /* Base scaling factors using viewport width */
+            --scale-factor: clamp(0.8, 1vw + 0.5, 1.0);
+            --text-scale: clamp(0.75, 2vw + 0.3, 1.0);
+            --spacing-scale: clamp(0.5, 2vw + 0.2, 1.0);
+            --component-scale: clamp(0.6, 2.5vw + 0.1, 1.0);
+        }
+        
+        /* Prevent horizontal overflow on all screen sizes */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            max-width: 100vw;
+        }
+        
+        html, body {
+            overflow-x: hidden;
+            width: 100%;
+        }
+        
+        /* Auto-scaling typography */
+        body, p, span, div, button, input, select, textarea, label {
+            font-size: clamp(0.75rem, 2vw + 0.5rem, 1rem) !important;
+        }
+        
+        /* Auto-scaling headings */
+        h1 { font-size: clamp(1.2rem, 4vw + 0.8rem, 2rem) !important; }
+        h2 { font-size: clamp(1.1rem, 3vw + 0.6rem, 1.5rem) !important; }
+        h3 { font-size: clamp(1rem, 2.5vw + 0.5rem, 1.2rem) !important; }
+        h4 { font-size: clamp(0.9rem, 2vw + 0.4rem, 1.1rem) !important; }
+        h5 { font-size: clamp(0.8rem, 1.5vw + 0.3rem, 1rem) !important; }
+        h6 { font-size: clamp(0.75rem, 1vw + 0.25rem, 0.9rem) !important; }
             
-            /* Heading font size reductions by 5% (was 20%, increased by 15%) */
-            h1 { font-size: 1.9rem !important; }
-            h2 { font-size: 1.425rem !important; }
-            h3 { font-size: 1.14rem !important; }
-            h4 { font-size: 1.045rem !important; }
-            h5 { font-size: 0.95rem !important; }
-            h6 { font-size: 0.855rem !important; }
+        /* Auto-scaling header elements */
+        h1.text-xl {
+            font-size: clamp(0.9rem, 2vw + 0.3rem, 1.25rem) !important;
+            line-height: clamp(1.2, 0.2vw + 1.1, 1.4) !important;
+        }
+        
+        /* Auto-scaling icons */
+        .header-icon {
+            width: clamp(1rem, 2vw + 0.5rem, 1.5rem) !important;
+            height: clamp(1rem, 2vw + 0.5rem, 1.5rem) !important;
+        }
             
-            /* Header font size optimized for mobile - already using text-xl */
-            h1.text-xl {
-                font-size: 1rem !important; /* Compact for mobile */
-                line-height: 1.3 !important;
-            }
-            
-            /* Header icon already optimized in HTML - mobile responsive */
-            .header-icon {
-                width: 1.25rem !important; /* h-5 equivalent for mobile */
-                height: 1.25rem !important;
-            }
-            
-            /* Equipment Cards Mobile Optimizations */
-            .equipment-card, .p-6 {
-                padding: 0.5rem !important; /* p-2 equivalent */
-            }
-            
-            /* Temperature list cards - mobile optimizations */
-            #temperature-list .glass {
-                padding: 0.75rem !important; /* Reduced from p-4 */
-                margin-bottom: 0.5rem !important; /* Tighter spacing */
-                height: auto !important; /* Reduce height */
-                min-height: 4rem !important; /* Minimum height for touch */
-            }
-            
-            /* Make cards wider by reducing horizontal margins */
-            #temperature-list {
-                margin: 0 -0.5rem !important;
-            }
-            
-            #temperature-list .glass {
-                margin-left: 0.5rem !important;
-                margin-right: 0.5rem !important;
-            }
+        /* Auto-scaling equipment cards and spacing */
+        .equipment-card, .p-6 {
+            padding: clamp(0.5rem, 2vw + 0.2rem, 1.5rem) !important;
+        }
+        
+        /* Auto-scaling temperature list cards */
+        #temperature-list .glass {
+            padding: clamp(0.5rem, 2vw + 0.25rem, 1rem) !important;
+            margin-bottom: clamp(0.25rem, 1vw + 0.1rem, 0.75rem) !important;
+            height: auto !important;
+            min-height: clamp(3rem, 8vw + 1rem, 5rem) !important;
+        }
+        
+        /* Auto-scaling margins */
+        #temperature-list {
+            margin: 0 clamp(-0.75rem, -1vw - 0.25rem, -0.25rem) !important;
+        }
+        
+        #temperature-list .glass {
+            margin-left: clamp(0.25rem, 1vw + 0.1rem, 0.75rem) !important;
+            margin-right: clamp(0.25rem, 1vw + 0.1rem, 0.75rem) !important;
+        }
             
             /* Equipment name and status icon layout - move status to right of name */
             #temperature-list .glass .flex.items-center.space-x-4 .flex-1 h3 {
@@ -340,34 +358,34 @@
                 justify-content: flex-end !important;
             }
             
-            /* Equipment info container adjustments */
-            #temperature-list .glass .flex.items-center.space-x-4 {
-                gap: 0.75rem !important; /* Reduced spacing */
-            }
-            
-            /* Equipment image/icon smaller on mobile */
-            #temperature-list .glass .flex.items-center.space-x-4 .p-2 {
-                padding: 0.375rem !important; /* Smaller padding */
-            }
-            
-            #temperature-list .glass .flex.items-center.space-x-4 img {
-                width: 2.5rem !important; /* Smaller images */
-                height: 2.5rem !important;
-            }
-            
-            /* Button text sizes reduced by 20% */
-            .btn-primary, .btn-secondary, button {
-                font-size: 0.7rem !important;
-            }
-            
-            /* Navigation and tab text reduced */
-            .bottom-nav-text, .profile-tab {
-                font-size: 0.6rem !important;
-            }
+        /* Auto-scaling equipment info containers */
+        #temperature-list .glass .flex.items-center.space-x-4 {
+            gap: clamp(0.5rem, 2vw + 0.15rem, 1rem) !important;
         }
         
-        /* Mobile Temperature History Modal - Full Screen Display */
-        @media (max-width: 768px) {
+        /* Auto-scaling equipment images/icons */
+        #temperature-list .glass .flex.items-center.space-x-4 .p-2 {
+            padding: clamp(0.25rem, 1vw + 0.1rem, 0.5rem) !important;
+        }
+        
+        #temperature-list .glass .flex.items-center.space-x-4 img {
+            width: clamp(2rem, 5vw + 0.5rem, 3rem) !important;
+            height: clamp(2rem, 5vw + 0.5rem, 3rem) !important;
+        }
+            
+        /* Auto-scaling buttons */
+        .btn-primary, .btn-secondary, button {
+            font-size: clamp(0.6rem, 1.5vw + 0.3rem, 0.9rem) !important;
+            padding: clamp(0.4rem, 2vw + 0.2rem, 0.8rem) clamp(0.8rem, 3vw + 0.4rem, 1.2rem) !important;
+            min-height: clamp(2.2rem, 8vw + 0.5rem, 2.8rem) !important;
+        }
+        
+        /* Auto-scaling navigation and tab text */
+        .bottom-nav-text, .profile-tab {
+            font-size: clamp(0.5rem, 1.2vw + 0.2rem, 0.75rem) !important;
+        }
+        
+        /* Auto-scaling Temperature History Modal - Responsive Full Screen Display */
             #temp-history-modal {
                 padding: 0 !important;
                 align-items: stretch !important;
@@ -385,13 +403,13 @@
                 overflow: hidden !important;
             }
             
-            #temp-history-modal > div > div {
-                flex: 1 !important;
-                overflow-y: auto !important;
-                overflow-x: hidden !important;
-                -webkit-overflow-scrolling: touch !important;
-                height: calc(100vh - 2rem) !important;
-            }
+        #temp-history-modal > div > div {
+            flex: 1 !important;
+            overflow-y: auto !important;
+            overflow-x: hidden !important;
+            -webkit-overflow-scrolling: touch !important;
+            height: calc(100vh - clamp(1rem, 3vw + 0.5rem, 3rem)) !important;
+        }
             
             /* Make table container scrollable on mobile */
             #temp-history-modal .overflow-x-auto {
@@ -404,45 +422,43 @@
                 display: none !important;
             }
             
-            /* Store selector mobile optimization */
-            @media (max-width: 640px) {
-                #selected-store-address {
-                    display: none !important;
-                }
-                
-                .store-selector-btn {
-                    padding: 0.75rem !important;
-                }
-                
-                /* Equipment cards mobile padding */
-                .glass-strong {
-                    padding: 1rem !important;
-                }
-            }
+        /* Auto-scaling store selector */
+        #selected-store-address {
+            display: clamp(0, calc(100vw - 640px), 1) !important;
+        }
+        
+        .store-selector-btn {
+            padding: clamp(0.5rem, 2vw + 0.25rem, 1rem) !important;
+        }
+        
+        /* Auto-scaling equipment cards */
+        .glass-strong {
+            padding: clamp(0.75rem, 2vw + 0.5rem, 1.5rem) !important;
+        }
             
-            /* Hide Select button on mobile */
-            .store-select-btn {
-                display: none !important;
-            }
+        /* Auto-hide Select button on small screens */
+        .store-select-btn {
+            display: clamp(0, calc(100vw - 768px), 1) !important;
+        }
             
-            /* Bottom Navigation Bar - Thermometer Style */
-            .bottom-nav {
-                position: fixed !important;
-                bottom: 0 !important;
-                left: 0 !important;
-                right: 0 !important;
-                z-index: 999999999 !important;
-                display: flex;
-                justify-content: space-around;
-                align-items: center;
-                padding: 0.75rem 1rem;
-                background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 50%, #bae6fd 100%);
-                backdrop-filter: blur(10px);
-                border-top: 3px solid #0ea5e9;
-                box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.1);
-                border-radius: 20px 20px 0 0;
-                overflow: hidden;
-            }
+        /* Auto-scaling Bottom Navigation Bar - Thermometer Style */
+        .bottom-nav {
+            position: fixed !important;
+            bottom: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            z-index: 999999999 !important;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: clamp(0.5rem, 2vw + 0.25rem, 1rem) clamp(0.75rem, 2vw + 0.5rem, 1.5rem);
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 50%, #bae6fd 100%);
+            backdrop-filter: blur(10px);
+            border-top: clamp(2px, 0.5vw + 1px, 4px) solid #0ea5e9;
+            box-shadow: 0 clamp(-2px, -1vw - 1px, -6px) clamp(10px, 3vw + 5px, 20px) rgba(0, 0, 0, 0.1);
+            border-radius: clamp(15px, 4vw + 5px, 25px) clamp(15px, 4vw + 5px, 25px) 0 0;
+            overflow: hidden;
+        }
             
             .dark .bottom-nav {
                 background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
@@ -486,34 +502,34 @@
                 }
             }
             
-            .bottom-nav-item {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                padding: 0.5rem;
-                border-radius: 0.75rem;
-                transition: all 0.3s ease;
-                min-width: 44px;
-                min-height: 44px;
-                cursor: pointer;
-                position: relative;
-                z-index: 10;
-            }
+        .bottom-nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: clamp(0.25rem, 1.5vw + 0.1rem, 0.75rem);
+            border-radius: clamp(0.5rem, 2vw + 0.25rem, 1rem);
+            transition: all 0.3s ease;
+            min-width: clamp(36px, 8vw + 20px, 60px);
+            min-height: clamp(36px, 8vw + 20px, 60px);
+            cursor: pointer;
+            position: relative;
+            z-index: 10;
+        }
             
             .bottom-nav-item:hover, .bottom-nav-item.active {
                 background: rgba(59, 130, 246, 0.1);
                 transform: translateY(-2px);
             }
             
-            .bottom-nav-icon {
-                font-size: 1.5rem;
-                margin-bottom: 0.25rem;
-                transition: all 0.3s ease;
-            }
-            
-            .bottom-nav-text {
-                font-size: 0.75rem;
-                font-weight: 500;
+        .bottom-nav-icon {
+            font-size: clamp(1rem, 3vw + 0.5rem, 1.8rem);
+            margin-bottom: clamp(0.1rem, 0.5vw + 0.05rem, 0.4rem);
+            transition: all 0.3s ease;
+        }
+        
+        .bottom-nav-text {
+            font-size: clamp(0.5rem, 1.2vw + 0.2rem, 0.9rem);
+            font-weight: 500;
                 color: #1e40af;
             }
             
@@ -580,33 +596,32 @@
             }
         }
         
-        /* Floating Action Button (FAB) */
-        @media (max-width: 768px) {
-            .fab {
-                position: fixed;
-                bottom: 5.5rem; /* Above bottom nav */
-                right: 1.5rem;
-                z-index: 60;
-                width: 3.5rem;
-                height: 3.5rem;
-                border-radius: 50%;
-                background: linear-gradient(135deg, rgb(58, 109, 55), rgb(46, 87, 44));
-                box-shadow: 0 8px 25px rgba(58, 109, 55, 0.4);
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                cursor: pointer;
-                transition: all 0.3s ease;
-                border: none;
-                outline: none;
-            }
-            
-            .fab:hover {
-                transform: scale(1.1);
-                box-shadow: 0 12px 35px rgba(58, 109, 55, 0.6);
-            }
-            
-            .fab:active {
+        /* Auto-scaling Floating Action Button (FAB) */
+        .fab {
+            position: fixed;
+            bottom: clamp(4rem, 12vw + 2rem, 7rem); /* Above bottom nav */
+            right: clamp(1rem, 3vw + 0.5rem, 2rem);
+            z-index: 60;
+            width: clamp(2.5rem, 8vw + 1rem, 4rem);
+            height: clamp(2.5rem, 8vw + 1rem, 4rem);
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgb(58, 109, 55), rgb(46, 87, 44));
+            box-shadow: 0 clamp(4px, 2vw + 2px, 12px) clamp(15px, 5vw + 10px, 35px) rgba(58, 109, 55, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            outline: none;
+        }
+        
+        .fab:hover {
+            transform: scale(clamp(1.05, 1vw + 1, 1.15));
+            box-shadow: 0 clamp(6px, 3vw + 3px, 15px) clamp(20px, 6vw + 15px, 40px) rgba(58, 109, 55, 0.6);
+        }
+        
+        .fab:active {
                 transform: scale(0.95);
             }
             
@@ -950,8 +965,7 @@
             color: #9ca3af !important;
         }
         
-        /* Mobile Profile Settings - Full Screen Display */
-        @media (max-width: 768px) {
+        /* Auto-scaling Profile Settings - Responsive Full Screen Display */
             #profile-settings-modal {
                 padding: 0 !important;
                 align-items: stretch !important;
@@ -969,31 +983,31 @@
                 overflow: hidden !important;
             }
             
-            #profile-settings-modal > div > div {
-                padding: 1rem !important;
-                flex: 1 !important;
-                overflow-y: auto !important;
-                overflow-x: hidden !important;
-                -webkit-overflow-scrolling: touch !important;
-                height: calc(100vh - 2rem) !important;
-            }
+        #profile-settings-modal > div > div {
+            padding: clamp(0.75rem, 2vw + 0.5rem, 1.5rem) !important;
+            flex: 1 !important;
+            overflow-y: auto !important;
+            overflow-x: hidden !important;
+            -webkit-overflow-scrolling: touch !important;
+            height: calc(100vh - clamp(1rem, 3vw + 0.5rem, 3rem)) !important;
+        }
             
             /* Hide close X button on mobile */
             #profile-settings-modal .flex.items-center.justify-between button {
                 display: none !important;
             }
             
-            /* Reduce space between title and profile picture section */
-            #profile-settings-modal .flex.items-center.justify-between {
-                margin-bottom: 0.75rem !important; /* Reduced from mb-6 */
-            }
-            
-            /* Smaller profile picture on mobile */
-            #profile-settings-modal #profile-avatar {
-                width: 4rem !important; /* Smaller profile picture */
-                height: 4rem !important;
-                font-size: 1rem !important; /* Smaller initials text */
-            }
+        /* Auto-scaling title and profile picture spacing */
+        #profile-settings-modal .flex.items-center.justify-between {
+            margin-bottom: clamp(0.5rem, 2vw + 0.25rem, 1rem) !important;
+        }
+        
+        /* Auto-scaling profile picture */
+        #profile-settings-modal #profile-avatar {
+            width: clamp(3rem, 8vw + 1rem, 5rem) !important;
+            height: clamp(3rem, 8vw + 1rem, 5rem) !important;
+            font-size: clamp(0.8rem, 2vw + 0.4rem, 1.3rem) !important;
+        }
             
             /* Profile picture section - restructured mobile layout */
             #profile-settings-modal .mb-8:first-of-type {
@@ -1018,28 +1032,28 @@
                 text-align: left !important;
             }
             
-            #profile-settings-modal .mb-8:first-of-type .flex-1 h4 {
-                font-size: 0.95rem !important; /* Slightly smaller title */
-                margin-bottom: 0.25rem !important;
-            }
-            
-            #profile-settings-modal .mb-8:first-of-type .flex-1 p {
-                font-size: 0.8rem !important; /* Smaller description */
-                margin-bottom: 0 !important;
-            }
+        #profile-settings-modal .mb-8:first-of-type .flex-1 h4 {
+            font-size: clamp(0.8rem, 2vw + 0.4rem, 1.1rem) !important;
+            margin-bottom: clamp(0.15rem, 0.5vw + 0.1rem, 0.4rem) !important;
+        }
+        
+        #profile-settings-modal .mb-8:first-of-type .flex-1 p {
+            font-size: clamp(0.7rem, 1.5vw + 0.3rem, 0.9rem) !important;
+            margin-bottom: 0 !important;
+        }
             
             /* Second line: Camera and upload buttons full width below */
-            #profile-settings-modal .mb-8:first-of-type .flex.space-x-2 {
-                margin-top: 0 !important;
-                width: 100% !important;
-                justify-content: center !important;
-                gap: 0.5rem !important;
-            }
-            
-            #profile-settings-modal .mb-8:first-of-type .flex.space-x-2 button {
-                flex: 1 !important;
-                max-width: 8rem !important;
-            }
+        #profile-settings-modal .mb-8:first-of-type .flex.space-x-2 {
+            margin-top: 0 !important;
+            width: 100% !important;
+            justify-content: center !important;
+            gap: clamp(0.25rem, 1vw + 0.1rem, 0.75rem) !important;
+        }
+        
+        #profile-settings-modal .mb-8:first-of-type .flex.space-x-2 button {
+            flex: 1 !important;
+            max-width: clamp(6rem, 15vw + 3rem, 10rem) !important;
+        }
             
             /* Remove the absolute positioned camera button on mobile */
             #profile-settings-modal .relative button.absolute {
@@ -1057,17 +1071,17 @@
                 -webkit-overflow-scrolling: touch !important;
                 padding-bottom: 0.5rem !important;
                 margin-bottom: 0.5rem !important; /* Reduced spacing */
-                gap: 1.5rem !important; /* Reduced from space-x-8 */
-            }
-            
-            /* Fix scrolling for all tab content areas */
-            #profile-settings-modal #profile-tab-content {
-                height: auto !important;
-                max-height: calc(100vh - 12rem) !important; /* Set max height for scrolling */
-                overflow-y: auto !important;
-                overflow-x: hidden !important;
-                -webkit-overflow-scrolling: touch !important;
-            }
+            gap: clamp(1rem, 3vw + 0.5rem, 2rem) !important;
+        }
+        
+        /* Auto-scaling scrollable tab content areas */
+        #profile-settings-modal #profile-tab-content {
+            height: auto !important;
+            max-height: calc(100vh - clamp(8rem, 15vw + 5rem, 15rem)) !important;
+            overflow-y: auto !important;
+            overflow-x: hidden !important;
+            -webkit-overflow-scrolling: touch !important;
+        }
             
             /* Ensure all tab content sections are scrollable */
             #profile-settings-modal .profile-tab-content {
@@ -1076,36 +1090,36 @@
                 overflow: visible !important;
             }
             
-            /* Specific fixes for individual tab content */
-            #profile-settings-modal #tab-content-personal,
-            #profile-settings-modal #tab-content-preferences,
-            #profile-settings-modal #tab-content-security,
-            #profile-settings-modal #tab-content-stores {
-                padding-bottom: 2rem !important; /* Add bottom padding for better scrolling */
-            }
+        /* Auto-scaling individual tab content */
+        #profile-settings-modal #tab-content-personal,
+        #profile-settings-modal #tab-content-preferences,
+        #profile-settings-modal #tab-content-security,
+        #profile-settings-modal #tab-content-stores {
+            padding-bottom: clamp(1.5rem, 4vw + 1rem, 3rem) !important;
+        }
             
-            #profile-settings-modal h3 {
-                font-size: 1.5rem !important;
-                margin-bottom: 1rem !important;
-            }
+        #profile-settings-modal h3 {
+            font-size: clamp(1.1rem, 3vw + 0.6rem, 1.7rem) !important;
+            margin-bottom: clamp(0.75rem, 2vw + 0.5rem, 1.25rem) !important;
+        }
+        
+        #profile-settings-modal .profile-tab {
+            padding: clamp(0.5rem, 2vw + 0.25rem, 1rem) clamp(0.75rem, 2vw + 0.5rem, 1.25rem) !important;
+            font-size: clamp(0.7rem, 1.5vw + 0.3rem, 1rem) !important;
+        }
             
-            #profile-settings-modal .profile-tab {
-                padding: 0.75rem 1rem !important;
-                font-size: 0.875rem !important;
-            }
-            
-            #profile-settings-modal input[type="text"],
-            #profile-settings-modal input[type="email"],
-            #profile-settings-modal select {
-                padding: 0.75rem !important;
-                font-size: 1rem !important;
-            }
-            
-            #profile-settings-modal button {
-                padding: 0.75rem 1.5rem !important;
-                font-size: 0.875rem !important;
-                min-height: 44px !important;
-            }
+        #profile-settings-modal input[type="text"],
+        #profile-settings-modal input[type="email"],
+        #profile-settings-modal select {
+            padding: clamp(0.5rem, 2vw + 0.25rem, 1rem) !important;
+            font-size: clamp(0.8rem, 2vw + 0.4rem, 1.1rem) !important;
+        }
+        
+        #profile-settings-modal button {
+            padding: clamp(0.5rem, 2vw + 0.25rem, 1rem) clamp(1rem, 3vw + 0.5rem, 2rem) !important;
+            font-size: clamp(0.7rem, 1.5vw + 0.3rem, 1rem) !important;
+            min-height: clamp(36px, 8vw + 20px, 56px) !important;
+        }
             
             #profile-settings-modal .store-access-item {
                 padding: 1rem !important;
@@ -1910,7 +1924,7 @@
                     
                     <!-- Version Number (positioned below user dropdown in header) -->
                     <div class="text-xs text-gray-600 dark:text-gray-400 bg-transparent pr-4">
-                        v1.10.61
+                        v1.10.62
                     </div>
                 </div>
             </div>
@@ -7669,7 +7683,7 @@
 
         // Initialize everything
         document.addEventListener('DOMContentLoaded', async function() {
-            console.log('🌡️ TempTracker Pro v1.10.61 loaded successfully!');
+            console.log('🌡️ TempTracker Pro v1.10.62 loaded successfully!');
             loadDarkModePreference();
             
             // Request fullscreen on mobile devices
