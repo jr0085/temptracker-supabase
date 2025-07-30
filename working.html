@@ -284,7 +284,23 @@
             
             /* Reduce card padding on mobile */
             .equipment-card, .p-6 {
-                padding: 0.75rem !important; /* p-3 equivalent */
+                padding: 0.5rem !important; /* p-2 equivalent */
+            }
+            
+            /* Store selector mobile optimization */
+            @media (max-width: 640px) {
+                #selected-store-address {
+                    display: none !important;
+                }
+                
+                .store-selector-btn {
+                    padding: 0.75rem !important;
+                }
+                
+                /* Equipment cards mobile padding */
+                .glass-strong {
+                    padding: 1rem !important;
+                }
             }
             
             /* Hide Select button on mobile */
@@ -1498,7 +1514,7 @@
 <body class="min-h-screen">
     <!-- Header -->
     <header class="glass-strong shadow-2xl border-b border-white/30 floating">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 md:py-3">
             <div class="flex items-center justify-between">
                 <div class="flex items-center space-x-2">
                     <div class="p-2 rounded-lg shadow-lg" style="background: linear-gradient(135deg, rgb(58, 109, 55), rgb(46, 87, 44));">
@@ -7145,7 +7161,7 @@
 
         // Initialize everything
         document.addEventListener('DOMContentLoaded', async function() {
-            console.log('🌡️ Temp Tracker Pro v1.10.54 loaded successfully!');
+            console.log('🌡️ TempTracker Pro v1.10.55 loaded successfully!');
             loadDarkModePreference();
             
             // Load stores first (needed for signup form)
@@ -7806,7 +7822,7 @@
             <span class="bottom-nav-text">Equipment</span>
         </div>
         
-        <div class="bottom-nav-item" onclick="openTempHistoryModal()">
+        <div class="bottom-nav-item" onclick="openTemperatureHistory()">
             <div class="bottom-nav-icon">
                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
