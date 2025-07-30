@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Temp Tracker Pro v1.10.54 | Cristy's Pizza</title>
+    <title>Temp Tracker Pro v1.10.57 | Cristy's Pizza</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.3/dist/umd/supabase.js"></script>
     <style>
@@ -308,27 +308,65 @@
                 display: none !important;
             }
             
-            /* Bottom Navigation Bar */
+            /* Bottom Navigation Bar - Thermometer Style */
             .bottom-nav {
-                position: fixed;
-                bottom: 0;
-                left: 0;
-                right: 0;
-                z-index: 50;
+                position: fixed !important;
+                bottom: 0 !important;
+                left: 0 !important;
+                right: 0 !important;
+                z-index: 999999999 !important;
                 display: flex;
                 justify-content: space-around;
                 align-items: center;
                 padding: 0.75rem 1rem;
-                background: rgba(255, 255, 255, 0.95);
+                background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 50%, #bae6fd 100%);
                 backdrop-filter: blur(10px);
-                border-top: 1px solid rgba(0, 0, 0, 0.1);
+                border-top: 3px solid #0ea5e9;
                 box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.1);
+                border-radius: 20px 20px 0 0;
+                overflow: hidden;
             }
             
             .dark .bottom-nav {
-                background: rgba(17, 24, 39, 0.95);
-                border-top: 1px solid rgba(255, 255, 255, 0.1);
+                background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+                border-top: 3px solid #0ea5e9;
                 box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.3);
+            }
+            
+            /* Thermometer Background */
+            .thermometer-bg {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 6px;
+                background: rgba(255, 255, 255, 0.3);
+                border-radius: 3px;
+            }
+            
+            /* Mercury Line */
+            .mercury-line {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                height: 6px;
+                background: linear-gradient(90deg, #ef4444, #dc2626, #b91c1c);
+                border-radius: 3px;
+                width: 25%;
+                transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+                box-shadow: 0 0 10px rgba(239, 68, 68, 0.6);
+                animation: mercury-pulse 2s infinite;
+            }
+            
+            @keyframes mercury-pulse {
+                0%, 100% { 
+                    box-shadow: 0 0 10px rgba(239, 68, 68, 0.6);
+                    filter: brightness(1);
+                }
+                50% { 
+                    box-shadow: 0 0 20px rgba(239, 68, 68, 1);
+                    filter: brightness(1.2);
+                }
             }
             
             .bottom-nav-item {
@@ -341,39 +379,70 @@
                 min-width: 44px;
                 min-height: 44px;
                 cursor: pointer;
+                position: relative;
+                z-index: 10;
             }
             
             .bottom-nav-item:hover, .bottom-nav-item.active {
-                background: rgba(58, 109, 55, 0.1);
+                background: rgba(59, 130, 246, 0.1);
                 transform: translateY(-2px);
             }
             
             .bottom-nav-icon {
-                width: 1.5rem;
-                height: 1.5rem;
-                padding: 0.25rem;
-                border-radius: 0.5rem;
+                font-size: 1.5rem;
                 margin-bottom: 0.25rem;
-                background: linear-gradient(135deg, rgb(58, 109, 55), rgb(46, 87, 44));
-                color: white;
+                transition: all 0.3s ease;
             }
             
             .bottom-nav-text {
                 font-size: 0.75rem;
                 font-weight: 500;
-                color: #6b7280;
+                color: #1e40af;
             }
             
             .dark .bottom-nav-text {
-                color: #9ca3af;
+                color: #60a5fa;
             }
             
             .bottom-nav-item.active .bottom-nav-text {
-                color: rgb(58, 109, 55);
+                color: #dc2626;
+                font-weight: 700;
             }
             
             .dark .bottom-nav-item.active .bottom-nav-text {
-                color: rgb(74, 135, 69);
+                color: #ef4444;
+                font-weight: 700;
+            }
+            
+            /* Pulsing red animation for profile */
+            .pulsing-red {
+                animation: pulse-red 1.5s infinite;
+            }
+            
+            @keyframes pulse-red {
+                0%, 100% { 
+                    filter: hue-rotate(0deg) brightness(1);
+                    transform: scale(1);
+                }
+                50% { 
+                    filter: hue-rotate(-30deg) brightness(1.3);
+                    transform: scale(1.1);
+                }
+            }
+            
+            @keyframes profile-glow {
+                0%, 100% { 
+                    box-shadow: 0 0 10px rgba(239, 68, 68, 0.6);
+                }
+                25% { 
+                    box-shadow: 0 0 25px rgba(239, 68, 68, 1), 0 0 35px rgba(239, 68, 68, 0.8);
+                }
+                50% { 
+                    box-shadow: 0 0 30px rgba(239, 68, 68, 1.2), 0 0 40px rgba(239, 68, 68, 1);
+                }
+                75% { 
+                    box-shadow: 0 0 25px rgba(239, 68, 68, 1), 0 0 35px rgba(239, 68, 68, 0.8);
+                }
             }
             
             /* Add bottom padding to main content when bottom nav is visible */
@@ -1514,16 +1583,16 @@
 <body class="min-h-screen">
     <!-- Header -->
     <header class="glass-strong shadow-2xl border-b border-white/30 floating">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 md:py-3">
+        <div class="max-w-7xl mx-auto px-2 sm:px-3 lg:px-4 py-1 md:py-1.5">
             <div class="flex items-center justify-between">
                 <div class="flex items-center space-x-2">
-                    <div class="p-2 rounded-lg shadow-lg" style="background: linear-gradient(135deg, rgb(58, 109, 55), rgb(46, 87, 44));">
+                    <div class="p-1 rounded-lg shadow-lg" style="background: linear-gradient(135deg, rgb(58, 109, 55), rgb(46, 87, 44));"
                         <svg class="h-5 w-5 text-white header-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
                         </svg>
                     </div>
                     <div>
-                        <h1 class="text-xl font-bold text-gray-900 dark:text-gray-100">TempTracker Pro</h1>
+                        <h1 class="text-lg font-bold text-gray-900 dark:text-gray-100">TempTracker Pro</h1>
                     </div>
                 </div>
                 <div class="flex flex-col items-end space-y-1">
@@ -1536,7 +1605,7 @@
                         <div class="flex items-center space-x-4">
                             <!-- User Menu -->
                             <div class="relative" id="user-menu-container" style="display: none;">
-                                <button onclick="toggleUserMenu()" class="flex items-center space-x-2 bg-transparent px-4 py-2 rounded-lg hover:bg-white/20 transition-colors">
+                                <button onclick="toggleUserMenu()" class="flex items-center space-x-2 bg-transparent px-2 py-1 rounded-lg hover:bg-white/20 transition-colors">
                                     <div class="w-8 h-8 bg-gradient-to-r from-green-600 to-green-700 rounded-full flex items-center justify-center" id="header-user-avatar">
                                         <span class="text-white font-semibold text-sm" id="user-initials">?</span>
                                     </div>
@@ -1552,7 +1621,7 @@
                             </div>
 
                             <!-- Login Button (shown when not authenticated) -->
-                            <button id="login-button" onclick="openAuthModal()" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-semibold transition-colors">
+                            <button id="login-button" onclick="openAuthModal()" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded-lg font-semibold transition-colors">
                                 Sign In
                             </button>
 
@@ -1561,7 +1630,7 @@
                     
                     <!-- Version Number (positioned below user dropdown in header) -->
                     <div class="text-xs text-gray-600 dark:text-gray-400 bg-transparent pr-4">
-                        v1.10.53
+                        v1.10.57
                     </div>
                 </div>
             </div>
@@ -1569,12 +1638,11 @@
     </header>
 
     <!-- Main Content -->
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <main class="max-w-7xl mx-auto px-2 md:px-4 sm:px-6 lg:px-8 py-4 md:py-8">
         <!-- Store Selector & Management -->
-        <div class="mb-8">
-            <div class="glass-strong rounded-3xl shadow-2xl p-8 floating">
+        <div class="mb-4 md:mb-8">
+            <div class="glass-strong rounded-3xl shadow-2xl p-4 md:p-8 floating">
                 <div class="flex items-center justify-between mb-4">
-                    <h2 class="text-xl font-bold text-gray-900 dark:text-gray-100">Select Store Location</h2>
                     <button onclick="openAddStoreModal()" class="glow-button text-white px-6 py-3 md:px-6 md:py-3 px-4 py-4 rounded-2xl font-semibold flex items-center space-x-2 min-h-[44px] touch-manipulation">
                         <span>➕</span>
                         <span class="hidden sm:inline">Add Store</span>
@@ -1583,7 +1651,7 @@
                 </div>
                 
                 <div class="relative" style="z-index: 1000;">
-                    <div class="w-full glass rounded-2xl shadow-lg p-6 flex items-center justify-between border-2 border-gray-300 dark:border-white/30">
+                    <div class="w-full glass rounded-2xl shadow-lg p-6 md:p-6 p-3 flex items-center justify-between border-2 border-gray-300 dark:border-white/30" style="height: 85%;">
                         <button onclick="toggleDropdown()" class="store-selector-btn flex items-center space-x-4 flex-1 text-left hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg p-2 transition-colors duration-200">
                             <div class="bg-gradient-to-r from-green-600 to-green-700 p-2 rounded-lg" style="background: linear-gradient(135deg, rgb(58, 109, 55), rgb(46, 87, 44));">
                                 <svg class="h-5 w-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -1592,8 +1660,7 @@
                                 </svg>
                             </div>
                             <div class="text-left">
-                                <p class="font-bold text-gray-900 dark:text-gray-100 text-lg" id="selected-store-name">Loading stores...</p>
-                                <p class="text-sm text-gray-600 dark:text-gray-300" id="selected-store-address"></p>
+                                <p class="font-bold text-gray-900 dark:text-gray-100 text-xl" id="selected-store-name">Loading stores...</p>
                             </div>
                         </button>
                         <div class="flex items-center space-x-2">
@@ -1613,7 +1680,7 @@
         </div>
 
         <!-- Navigation Tabs -->
-        <div class="mb-8">
+        <div class="mb-8 hidden md:block">
             <div class="glass-strong rounded-2xl shadow-xl p-2">
                 <div class="flex space-x-2">
                     <button onclick="showSection('temperature')" id="temp-tab" class="flex-1 px-4 py-4 md:px-6 md:py-3 rounded-lg font-semibold transition-colors min-h-[44px] touch-manipulation">
@@ -1629,11 +1696,11 @@
         </div>
 
         <!-- Temperature Logging -->
-        <div class="mb-8" id="temperature-section" style="display: none;">
-            <div class="glass-strong rounded-3xl shadow-2xl p-8">
-                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 gap-4">
+        <div class="mb-4 md:mb-8" id="temperature-section" style="display: none;">
+            <div class="glass-strong rounded-3xl shadow-2xl p-2 md:p-4">
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-3 gap-2">
                     <div class="flex items-center space-x-3">
-                        <div class="p-2 rounded-lg" style="background: linear-gradient(135deg, rgb(58, 109, 55), rgb(46, 87, 44));">
+                        <div class="p-1 rounded-lg" style="background: linear-gradient(135deg, rgb(58, 109, 55), rgb(46, 87, 44));">
                             <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
                             </svg>
@@ -1646,7 +1713,7 @@
                 </div>
                 
                 <!-- Move bulk mode and history buttons below header, above equipment -->
-                <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-3 mt-4 mb-4">
+                <div class="hidden md:flex md:flex-row space-y-2 md:space-y-0 md:space-x-3 mt-2 mb-2">
                     <button onclick="toggleBulkMode()" id="bulk-mode-btn" class="btn-secondary min-h-[44px] touch-manipulation px-4 py-3">
                         <span class="hidden sm:inline">📝 Bulk Mode</span>
                         <span class="sm:hidden">📝 Bulk</span>
@@ -1661,7 +1728,7 @@
                     <!-- Temperature logging will be populated here -->
                 </div>
                 
-                <div id="bulk-actions" class="hidden mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
+                <div id="bulk-actions" class="hidden mt-3 p-2 bg-blue-50 rounded-lg border border-blue-200">
                     <div class="flex items-center justify-between mb-4">
                         <h3 class="font-bold text-blue-900">🔥 Bulk Temperature Entry</h3>
                         <div class="flex space-x-2">
@@ -1679,11 +1746,11 @@
         </div>
 
         <!-- Equipment Management -->
-        <div class="mb-8" id="equipment-section" style="display: none;">
-            <div class="glass-strong rounded-3xl shadow-2xl p-8">
-                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 gap-4">
+        <div class="mb-4 md:mb-8" id="equipment-section" style="display: none;">
+            <div class="glass-strong rounded-3xl shadow-2xl p-2 md:p-8">
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-3 md:mb-6 gap-2 md:gap-4">
                     <div class="flex items-center space-x-3">
-                        <div class="p-2 rounded-lg" style="background: linear-gradient(135deg, rgb(58, 109, 55), rgb(46, 87, 44));">
+                        <div class="p-1 md:p-2 rounded-lg" style="background: linear-gradient(135deg, rgb(58, 109, 55), rgb(46, 87, 44));">
                             <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 9a2 2 0 00-2 2v2a2 2 0 002 2m0 0h14m-14 0a2 2 0 002 2v2a2 2 0 01-2 2"></path>
                             </svg>
@@ -3566,7 +3633,7 @@
                 
                 // Reset store display
                 document.getElementById('selected-store-name').textContent = 'Select a store location';
-                document.getElementById('selected-store-address').textContent = 'Choose from the dropdown below';
+                // Address element removed for simplification
                 
                 updateStatus('✅ Signed out successfully');
                 showNotification('You have been signed out', 'success');
@@ -3598,6 +3665,47 @@
         // Profile Settings Functions
         function showProfile() {
             console.log('🔧 Opening profile settings modal...');
+            
+            // Close all other sections and modals first
+            const tempHistoryModal = document.getElementById('temp-history-modal');
+            if (tempHistoryModal) {
+                tempHistoryModal.remove();
+            }
+            
+            // Hide all other persistent modals
+            const modalsToHide = [
+                'store-modal',
+                'equipment-modal', 
+                'auth-modal',
+                'admin-modal',
+                'store-selection-modal',
+                'equipment-history-modal'
+            ];
+            
+            modalsToHide.forEach(modalId => {
+                const modal = document.getElementById(modalId);
+                if (modal) {
+                    modal.classList.add('hidden');
+                }
+            });
+            
+            // Remove any dynamically created modals
+            const dynamicModals = document.querySelectorAll('[id$="-camera-modal"], [id*="quick-temp"]');
+            dynamicModals.forEach(modal => modal.remove());
+            
+            // Hide main sections
+            document.getElementById('temperature-section').style.display = 'none';
+            document.getElementById('equipment-section').style.display = 'none';
+            
+            // Update mercury and nav state
+            updateMercury('profile');
+            document.querySelectorAll('.bottom-nav-item').forEach(item => item.classList.remove('active'));
+            const profileNavItem = document.querySelector('.bottom-nav-item[data-nav="profile"]');
+            if (profileNavItem) {
+                profileNavItem.classList.add('active');
+                console.log('✅ Profile nav item activated, text should be red');
+            }
+            
             document.getElementById('user-dropdown').classList.add('hidden');
             document.getElementById('profile-settings-modal').classList.remove('hidden');
             document.body.classList.add('modal-open');
@@ -4556,7 +4664,7 @@
                 
                 // Set default "Select a store" state instead of auto-selecting first store
                 document.getElementById('selected-store-name').textContent = 'Select a store location';
-                document.getElementById('selected-store-address').textContent = 'Choose from the dropdown below';
+                // Address element removed for simplification
                 document.getElementById('edit-current-store-btn').style.display = 'none';
                 
                 renderStoreDropdown();
@@ -4658,7 +4766,7 @@
         function selectStore(store) {
             selectedStore = store;
             document.getElementById('selected-store-name').textContent = store.name;
-            document.getElementById('selected-store-address').textContent = store.address;
+            // Address element removed for simplification
             
             // Show edit button when store is selected (if user has permission)
             document.getElementById('edit-current-store-btn').style.display = checkPermission('store_edit') ? 'block' : 'none';
@@ -4737,50 +4845,51 @@
                 const glowClass = getStatusGlowClass(status);
                 
                 return `
-                <div class="glass rounded-xl p-4 flex flex-col sm:flex-row sm:items-center justify-between card-hover ${glowClass} transition-all duration-300 gap-4 sm:gap-0" 
-                     draggable="true" 
+                <div class="glass rounded-xl p-4 flex flex-col sm:flex-row sm:items-center justify-between card-hover ${glowClass} transition-all duration-300 gap-4 sm:gap-0 cursor-pointer" 
+                     draggable="${checkPermission('equipment_reorder') ? 'true' : 'false'}" 
                      data-index="${index}"
+                     onclick="openEquipmentHistoryModal('${eq.id}')"
+                     ${checkPermission('equipment_reorder') ? `
                      ondragstart="handleEquipmentDragStart(event)"
                      ondragover="handleEquipmentDragOver(event)"
                      ondrop="handleEquipmentDrop(event)"
-                     ondragend="handleEquipmentDragEnd(event)">
+                     ondragend="handleEquipmentDragEnd(event)"` : ''}>
                     <div class="flex items-center space-x-4 flex-1">
-                        <div class="cursor-grab active:cursor-grabbing p-1 hover:bg-gray-100 rounded-lg transition-colors touch-manipulation" title="Drag to reorder">
+                        ${checkPermission('equipment_reorder') ? `
+                        <div class="cursor-grab active:cursor-grabbing p-1 hover:bg-gray-100 rounded-lg transition-colors touch-manipulation" title="Drag to reorder" onclick="event.stopPropagation()">
                             <svg class="h-5 w-5 sm:h-4 sm:w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h16M4 16h16"></path>
                             </svg>
-                        </div>
+                        </div>` : ''}
                         <div class="p-2 rounded-lg ${eq.photo ? 'p-0' : ''}" style="background: ${eq.photo ? 'transparent' : `linear-gradient(135deg, ${getEquipmentColor(eq.type)})`};">
                             ${eq.photo ? `<img src="${eq.photo}" alt="${eq.name}" class="w-12 h-12 rounded-lg object-cover">` : getEquipmentIcon(eq.type)}
                         </div>
                         <div class="flex-1">
-                            <h3 class="font-bold text-gray-900 text-lg sm:text-base">${eq.name}</h3>
+                            <div class="flex items-center justify-between">
+                                <h3 class="font-bold text-gray-900 text-lg sm:text-base">${eq.name}</h3>
+                                <div class="flex items-center space-x-1">
+                                    <div title="Status" style="color: ${statusColor};">${statusIcon}</div>
+                                </div>
+                            </div>
                             <p class="text-sm text-gray-600">${eq.location || 'No location set'}</p>
                             <p class="text-xs text-gray-500">Target: ${eq.min_temp}°F to ${eq.max_temp}°F</p>
                             ${lastLog ? `<p class="text-xs text-gray-400 mt-1">Last: ${lastLog.temperature}°F (${formatTimeAgo(lastLog.logged_at)})</p>` : ''}
                         </div>
                     </div>
                     <div class="flex items-center justify-between sm:justify-center space-x-3 sm:space-x-3">
-                        <div class="text-center">
-                            <div class="mb-1">${statusIcon}</div>
-                            <div class="text-xs font-medium" style="color: ${statusColor};">Status</div>
-                        </div>
                         <div class="flex items-center space-x-2">
-                            <button onclick="openEquipmentHistoryModal('${eq.id}')" class="p-3 sm:p-2 hover:bg-gray-100 rounded-lg transition-colors touch-manipulation min-h-[44px] min-w-[44px] sm:min-h-auto sm:min-w-auto flex items-center justify-center" title="View Temperature History">
-                                <svg class="h-5 w-5 sm:h-4 sm:w-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
-                                </svg>
-                            </button>
-                            <button onclick="openEquipmentModal('edit', '${eq.id}')" class="p-3 sm:p-2 hover:bg-gray-100 rounded-lg transition-colors touch-manipulation min-h-[44px] min-w-[44px] sm:min-h-auto sm:min-w-auto flex items-center justify-center" title="Edit Equipment">
+                            ${checkPermission('equipment_edit') ? `
+                            <button onclick="event.stopPropagation(); openEquipmentModal('edit', '${eq.id}')" class="p-3 sm:p-2 hover:bg-gray-100 rounded-lg transition-colors touch-manipulation min-h-[44px] min-w-[44px] sm:min-h-auto sm:min-w-auto flex items-center justify-center" title="Edit Equipment">
                                 <svg class="h-5 w-5 sm:h-4 sm:w-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
                                 </svg>
-                            </button>
-                            <button onclick="deleteEquipment('${eq.id}')" class="p-3 sm:p-2 hover:bg-red-100 rounded-lg transition-colors touch-manipulation min-h-[44px] min-w-[44px] sm:min-h-auto sm:min-w-auto flex items-center justify-center" title="Delete Equipment">
+                            </button>` : ''}
+                            ${checkPermission('equipment_delete') ? `
+                            <button onclick="event.stopPropagation(); deleteEquipment('${eq.id}')" class="p-3 sm:p-2 hover:bg-red-100 rounded-lg transition-colors touch-manipulation min-h-[44px] min-w-[44px] sm:min-h-auto sm:min-w-auto flex items-center justify-center" title="Delete Equipment">
                                 <svg class="h-5 w-5 sm:h-4 sm:w-4 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
                                 </svg>
-                            </button>
+                            </button>` : ''}
                         </div>
                     </div>
                 </div>
@@ -5427,7 +5536,7 @@
                 if (selectedStore && selectedStore.id === storeId) {
                     selectedStore = null;
                     document.getElementById('selected-store-name').textContent = 'Select a store location';
-                    document.getElementById('selected-store-address').textContent = 'Choose from the dropdown below';
+                    // Address element removed for simplification
                     document.getElementById('edit-current-store-btn').style.display = 'none';
                     
                     // Hide temperature and equipment sections
@@ -5530,13 +5639,16 @@
         }
         function updateStatus(message) {
             const statusList = document.getElementById('status-list');
-            const secondItem = statusList.children[1];
-            if (secondItem) {
-                secondItem.innerHTML = `
-                    <span class="w-4 h-4 rounded-full mr-3 flex-shrink-0" style="background-color: rgb(58, 109, 55);"></span>
-                    <span class="font-medium">${message}</span>
-                `;
+            if (statusList && statusList.children.length > 1) {
+                const secondItem = statusList.children[1];
+                if (secondItem) {
+                    secondItem.innerHTML = `
+                        <span class="w-4 h-4 rounded-full mr-3 flex-shrink-0" style="background-color: rgb(58, 109, 55);"></span>
+                        <span class="font-medium">${message}</span>
+                    `;
+                }
             }
+            console.log('Status:', message);
         }
         // Dark mode functionality
         function toggleDarkMode() {
@@ -5704,6 +5816,37 @@
         function showSection(section) {
             currentSection = section;
             
+            // Close all modals and overlays first
+            const tempHistoryModal = document.getElementById('temp-history-modal');
+            if (tempHistoryModal) {
+                tempHistoryModal.remove();
+            }
+            
+            // Hide all persistent modals
+            const modalsToHide = [
+                'store-modal',
+                'equipment-modal', 
+                'auth-modal',
+                'admin-modal',
+                'store-selection-modal',
+                'equipment-history-modal',
+                'profile-settings-modal'
+            ];
+            
+            modalsToHide.forEach(modalId => {
+                const modal = document.getElementById(modalId);
+                if (modal) {
+                    modal.classList.add('hidden');
+                }
+            });
+            
+            // Remove any dynamically created modals
+            const dynamicModals = document.querySelectorAll('[id$="-camera-modal"], [id*="temp-history"], [id*="quick-temp"]');
+            dynamicModals.forEach(modal => modal.remove());
+            
+            // Remove modal-open class from body
+            document.body.classList.remove('modal-open');
+            
             // Hide all sections
             document.getElementById('temperature-section').style.display = 'none';
             document.getElementById('equipment-section').style.display = 'none';
@@ -5723,6 +5866,50 @@
             document.getElementById('equipment-tab').className = section === 'equipment'
                 ? 'flex-1 px-6 py-3 rounded-lg font-semibold transition-colors text-white glow-button'
                 : 'flex-1 px-6 py-3 rounded-lg font-semibold transition-colors text-gray-600 hover:text-gray-900';
+                
+            // Update bottom nav active state
+            document.querySelectorAll('.bottom-nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            if (section === 'temperature') {
+                document.querySelector('.bottom-nav-item[data-nav="temperature"]').classList.add('active');
+                updateMercury('temperature');
+            } else if (section === 'equipment') {
+                document.querySelector('.bottom-nav-item[data-nav="equipment"]').classList.add('active');
+                updateMercury('equipment');
+            }
+        }
+        
+        // Mercury thermometer navigation animation
+        function updateMercury(section) {
+            const mercuryLine = document.getElementById('mercury-line');
+            if (!mercuryLine) return;
+            
+            let width;
+            switch(section) {
+                case 'temperature':
+                    width = '25%';
+                    break;
+                case 'equipment':
+                    width = '50%';
+                    break;
+                case 'reports':
+                    width = '75%';
+                    break;
+                case 'profile':
+                    width = '100%';
+                    // Extra glow and pulsing for profile
+                    mercuryLine.style.animation = 'mercury-pulse 1s infinite, profile-glow 2s infinite';
+                    setTimeout(() => {
+                        mercuryLine.style.animation = 'mercury-pulse 2s infinite';
+                    }, 3000);
+                    break;
+                default:
+                    width = '25%';
+            }
+            
+            mercuryLine.style.width = width;
         }
         
         // Temperature logging functions
@@ -6237,6 +6424,50 @@
         
         function openTemperatureHistory() {
             if (!selectedStore) return;
+            
+            // Close all other sections and modals first
+            const tempHistoryModal = document.getElementById('temp-history-modal');
+            if (tempHistoryModal) {
+                tempHistoryModal.remove();
+            }
+            
+            // Hide all persistent modals
+            const modalsToHide = [
+                'store-modal',
+                'equipment-modal', 
+                'auth-modal',
+                'admin-modal',
+                'store-selection-modal',
+                'equipment-history-modal',
+                'profile-settings-modal'
+            ];
+            
+            modalsToHide.forEach(modalId => {
+                const modal = document.getElementById(modalId);
+                if (modal) {
+                    modal.classList.add('hidden');
+                }
+            });
+            
+            // Remove any dynamically created modals
+            const dynamicModals = document.querySelectorAll('[id$="-camera-modal"], [id*="quick-temp"]');
+            dynamicModals.forEach(modal => modal.remove());
+            
+            // Remove modal-open class from body
+            document.body.classList.remove('modal-open');
+            
+            // Hide main sections
+            document.getElementById('temperature-section').style.display = 'none';
+            document.getElementById('equipment-section').style.display = 'none';
+            
+            // Update mercury and nav state
+            updateMercury('reports');
+            document.querySelectorAll('.bottom-nav-item').forEach(item => item.classList.remove('active'));
+            const reportsNavItem = document.querySelector('.bottom-nav-item[data-nav="reports"]');
+            if (reportsNavItem) {
+                reportsNavItem.classList.add('active');
+                console.log('✅ Reports nav item activated, text should be red');
+            }
             
             // Create temperature history modal
             const historyModal = document.createElement('div');
@@ -7161,7 +7392,7 @@
 
         // Initialize everything
         document.addEventListener('DOMContentLoaded', async function() {
-            console.log('🌡️ TempTracker Pro v1.10.55 loaded successfully!');
+            console.log('🌡️ TempTracker Pro v1.10.57 loaded successfully!');
             loadDarkModePreference();
             
             // Load stores first (needed for signup form)
@@ -7398,17 +7629,19 @@
                 return;
             }
 
-            // Check if we have equipment
-            const equipmentList = document.getElementById('equipment-list');
-            if (!equipmentList || equipmentList.children.length === 0) {
+            // Get first available equipment for the selected store
+            const storeEquipment = equipment.filter(eq => eq.store_id === selectedStore.id);
+            if (storeEquipment.length === 0) {
                 showNotification('No equipment available. Add equipment first.', 'warning');
                 return;
             }
+            const firstEquipment = storeEquipment[0];
 
             // Create quick temp modal
             const quickModal = document.createElement('div');
+            quickModal.id = 'quick-temp-modal';
             quickModal.className = 'fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4';
-            quickModal.style.zIndex = '9999999';
+            quickModal.style.zIndex = '999999999';
             quickModal.innerHTML = `
                 <div class="glass-strong rounded-2xl shadow-2xl max-w-md w-full p-6 border border-white/40">
                     <div class="text-center mb-6">
@@ -7418,7 +7651,7 @@
                             </svg>
                         </div>
                         <h3 class="text-xl font-bold text-gray-900">Quick Temperature Log</h3>
-                        <p class="text-gray-600 mt-2">Log temperature for first available equipment</p>
+                        <p class="text-gray-600 mt-2">Log temperature for <strong>${firstEquipment.name}</strong></p>
                     </div>
                     
                     <div class="mb-6">
@@ -7447,10 +7680,28 @@
             document.body.appendChild(quickModal);
             document.body.classList.add('modal-open');
             
-            // Focus the input
+            // Focus the input and add glow effect when value entered
             setTimeout(() => {
                 const input = document.getElementById('quick-temp-input');
                 input.focus();
+                
+                // Add glow effect when temperature is entered
+                input.addEventListener('input', function() {
+                    const value = parseFloat(this.value);
+                    if (!isNaN(value) && value !== 0) {
+                        // Add glowing effect
+                        this.style.borderColor = '#10b981';
+                        this.style.boxShadow = '0 0 20px rgba(16, 185, 129, 0.3), 0 0 40px rgba(16, 185, 129, 0.1)';
+                        this.style.backgroundColor = 'rgba(16, 185, 129, 0.05)';
+                        this.style.color = '#047857';
+                    } else {
+                        // Remove glowing effect
+                        this.style.borderColor = '';
+                        this.style.boxShadow = '';
+                        this.style.backgroundColor = '';
+                        this.style.color = '';
+                    }
+                });
             }, 100);
         };
 
@@ -7477,22 +7728,14 @@
             }
 
             try {
-                // Get first equipment item
-                const equipmentCards = document.querySelectorAll('.equipment-card');
-                if (equipmentCards.length === 0) {
+                // Get first available equipment for the selected store
+                const storeEquipment = equipment.filter(eq => eq.store_id === selectedStore.id);
+                if (storeEquipment.length === 0) {
                     showNotification('No equipment available', 'error');
                     return;
                 }
 
-                // Find the first equipment ID from the first card
-                const firstCard = equipmentCards[0];
-                const tempInputField = firstCard.querySelector('input[type="number"]');
-                if (!tempInputField) {
-                    showNotification('No temperature input found', 'error');
-                    return;
-                }
-
-                const equipmentId = tempInputField.id.replace('temp-', '');
+                const equipmentId = storeEquipment[0].id;
                 
                 // Log the temperature using existing function
                 const result = await logTemperatureToDatabase(equipmentId, tempValue, selectedStore.id, currentUser.id);
@@ -7802,40 +8045,38 @@
         </div>
     </div>
 
-    <!-- Mobile Bottom Navigation -->
+    <!-- Mobile Bottom Navigation - Thermometer Style -->
     <nav class="bottom-nav">
-        <div class="bottom-nav-item" onclick="scrollToSection('temperature-logging')">
+        <!-- Thermometer Background -->
+        <div class="thermometer-bg"></div>
+        
+        <!-- Mercury Line -->
+        <div class="mercury-line" id="mercury-line"></div>
+        
+        <div class="bottom-nav-item active" onclick="showSection('temperature')" data-nav="temperature">
             <div class="bottom-nav-icon">
-                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
-                </svg>
+                🌡️
             </div>
             <span class="bottom-nav-text">Temps</span>
         </div>
         
-        <div class="bottom-nav-item" onclick="scrollToSection('equipment-management')">
+        <div class="bottom-nav-item" onclick="showSection('equipment')" data-nav="equipment">
             <div class="bottom-nav-icon">
-                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 9a2 2 0 00-2 2v2a2 2 0 002 2m0 0h14m-14 0a2 2 0 002 2v2a2 2 0 01-2 2"></path>
-                </svg>
+                ⚙️
             </div>
             <span class="bottom-nav-text">Equipment</span>
         </div>
         
-        <div class="bottom-nav-item" onclick="openTemperatureHistory()">
+        <div class="bottom-nav-item" onclick="openTemperatureHistory()" data-nav="reports">
             <div class="bottom-nav-icon">
-                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
-                </svg>
+                📊
             </div>
             <span class="bottom-nav-text">Reports</span>
         </div>
         
-        <div class="bottom-nav-item" onclick="toggleUserMenu()">
-            <div class="bottom-nav-icon">
-                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                </svg>
+        <div class="bottom-nav-item" onclick="showProfile()" data-nav="profile">
+            <div class="bottom-nav-icon pulsing-red">
+                👤
             </div>
             <span class="bottom-nav-text">Profile</span>
         </div>
