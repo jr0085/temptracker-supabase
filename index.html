@@ -7,7 +7,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="theme-color" content="#059669">
-    <title>Temp Tracker Pro v1.10.59 | Cristy's Pizza</title>
+    <title>Temp Tracker Pro v1.10.60 | Cristy's Pizza</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.3/dist/umd/supabase.js"></script>
     <style>
@@ -274,18 +274,18 @@
         
         /* Mobile-specific improvements */
         @media (max-width: 768px) {
-            /* General font size reduction by 20% for mobile */
+            /* General font size reduction by 5% for mobile (was 20%, increased by 15%) */
             body, p, span, div, button, input, select, textarea, label {
-                font-size: 0.8em !important;
+                font-size: 0.95em !important;
             }
             
-            /* Heading font size reductions by 20% */
-            h1 { font-size: 1.6rem !important; }
-            h2 { font-size: 1.2rem !important; }
-            h3 { font-size: 1.0rem !important; }
-            h4 { font-size: 0.9rem !important; }
-            h5 { font-size: 0.8rem !important; }
-            h6 { font-size: 0.7rem !important; }
+            /* Heading font size reductions by 5% (was 20%, increased by 15%) */
+            h1 { font-size: 1.9rem !important; }
+            h2 { font-size: 1.425rem !important; }
+            h3 { font-size: 1.14rem !important; }
+            h4 { font-size: 1.045rem !important; }
+            h5 { font-size: 0.95rem !important; }
+            h6 { font-size: 0.855rem !important; }
             
             /* Header font size optimized for mobile - already using text-xl */
             h1.text-xl {
@@ -299,9 +299,60 @@
                 height: 1.25rem !important;
             }
             
-            /* Reduce card padding on mobile */
+            /* Equipment Cards Mobile Optimizations */
             .equipment-card, .p-6 {
                 padding: 0.5rem !important; /* p-2 equivalent */
+            }
+            
+            /* Temperature list cards - mobile optimizations */
+            #temperature-list .glass {
+                padding: 0.75rem !important; /* Reduced from p-4 */
+                margin-bottom: 0.5rem !important; /* Tighter spacing */
+                height: auto !important; /* Reduce height */
+                min-height: 4rem !important; /* Minimum height for touch */
+            }
+            
+            /* Make cards wider by reducing horizontal margins */
+            #temperature-list {
+                margin: 0 -0.5rem !important;
+            }
+            
+            #temperature-list .glass {
+                margin-left: 0.5rem !important;
+                margin-right: 0.5rem !important;
+            }
+            
+            /* Equipment name and status icon layout - move status to right of name */
+            #temperature-list .glass .flex.items-center.space-x-4 .flex-1 h3 {
+                display: flex !important;
+                align-items: center !important;
+                justify-content: space-between !important;
+            }
+            
+            /* Move status icon next to equipment name on mobile */
+            #temperature-list .glass .flex.items-center.justify-between .text-center:first-child {
+                order: -1 !important;
+                margin-right: 0.5rem !important;
+            }
+            
+            /* Hide the separate status section on mobile, we'll move it inline */
+            #temperature-list .glass .flex.items-center.justify-between {
+                justify-content: flex-end !important;
+            }
+            
+            /* Equipment info container adjustments */
+            #temperature-list .glass .flex.items-center.space-x-4 {
+                gap: 0.75rem !important; /* Reduced spacing */
+            }
+            
+            /* Equipment image/icon smaller on mobile */
+            #temperature-list .glass .flex.items-center.space-x-4 .p-2 {
+                padding: 0.375rem !important; /* Smaller padding */
+            }
+            
+            #temperature-list .glass .flex.items-center.space-x-4 img {
+                width: 2.5rem !important; /* Smaller images */
+                height: 2.5rem !important;
             }
             
             /* Button text sizes reduced by 20% */
@@ -312,6 +363,45 @@
             /* Navigation and tab text reduced */
             .bottom-nav-text, .profile-tab {
                 font-size: 0.6rem !important;
+            }
+        }
+        
+        /* Mobile Temperature History Modal - Full Screen Display */
+        @media (max-width: 768px) {
+            #temp-history-modal {
+                padding: 0 !important;
+                align-items: stretch !important;
+                justify-content: stretch !important;
+            }
+            
+            #temp-history-modal > div {
+                max-width: none !important;
+                width: 100% !important;
+                height: 100vh !important;
+                border-radius: 0 !important;
+                border: none !important;
+                display: flex !important;
+                flex-direction: column !important;
+                overflow: hidden !important;
+            }
+            
+            #temp-history-modal > div > div {
+                flex: 1 !important;
+                overflow-y: auto !important;
+                overflow-x: hidden !important;
+                -webkit-overflow-scrolling: touch !important;
+                height: calc(100vh - 2rem) !important;
+            }
+            
+            /* Make table container scrollable on mobile */
+            #temp-history-modal .overflow-x-auto {
+                overflow-x: auto !important;
+                -webkit-overflow-scrolling: touch !important;
+            }
+            
+            /* Hide close X button on mobile for reports */
+            #temp-history-modal .flex.items-center.justify-between button:last-child {
+                display: none !important;
             }
             
             /* Store selector mobile optimization */
@@ -885,6 +975,47 @@
                 overflow-y: auto !important;
                 overflow-x: hidden !important;
                 -webkit-overflow-scrolling: touch !important;
+                height: calc(100vh - 2rem) !important;
+            }
+            
+            /* Hide close X button on mobile */
+            #profile-settings-modal .flex.items-center.justify-between button {
+                display: none !important;
+            }
+            
+            /* Smaller profile picture on mobile */
+            #profile-settings-modal #profile-avatar {
+                width: 4rem !important; /* 16 -> 4rem (64px -> 16px) */
+                height: 4rem !important;
+                font-size: 1rem !important; /* Smaller initials text */
+            }
+            
+            /* Profile picture section - mobile layout */
+            #profile-settings-modal .mb-8:first-of-type {
+                text-align: center !important;
+            }
+            
+            #profile-settings-modal .mb-8:first-of-type .flex.items-center.space-x-4 {
+                flex-direction: column !important;
+                align-items: center !important;
+                space-x: 0 !important;
+                gap: 1rem !important;
+            }
+            
+            /* Move buttons below profile picture on mobile */
+            #profile-settings-modal .mb-8:first-of-type .flex-1 {
+                width: 100% !important; 
+                text-align: center !important;
+            }
+            
+            #profile-settings-modal .mb-8:first-of-type .flex.space-x-2 {
+                justify-content: center !important;
+                margin-top: 1rem !important;
+            }
+            
+            /* Remove the absolute positioned camera button on mobile */
+            #profile-settings-modal .relative button.absolute {
+                display: none !important;
             }
             
             /* Ensure tabs are fully visible and scrollable */
@@ -1729,7 +1860,7 @@
                     
                     <!-- Version Number (positioned below user dropdown in header) -->
                     <div class="text-xs text-gray-600 dark:text-gray-400 bg-transparent pr-4">
-                        v1.10.59
+                        v1.10.60
                     </div>
                 </div>
             </div>
@@ -7488,7 +7619,7 @@
 
         // Initialize everything
         document.addEventListener('DOMContentLoaded', async function() {
-            console.log('🌡️ TempTracker Pro v1.10.59 loaded successfully!');
+            console.log('🌡️ TempTracker Pro v1.10.60 loaded successfully!');
             loadDarkModePreference();
             
             // Request fullscreen on mobile devices

@@ -1,0 +1,13 @@
+{
+  "name": "temptracker-supabase",
+  "version": "1.10.60",
+  "description": "TempTracker Pro - Progressive Web Application for restaurant temperature monitoring",
+  "scripts": {
+    "test": "node tests/simple.spec.js",
+    "test:v1.10.60": "node tests/simple.spec.js",
+    "serve": "http-server -c-1 -p 3000"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  }
+}
