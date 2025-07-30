@@ -3109,7 +3109,7 @@
         }
         
         // Equipment card swipe actions
-        let swipeStartX = 0;
+        let equipmentSwipeStartX = 0;
         let currentSwipeCard = null;
         
         function initializeEquipmentCardSwipes() {
@@ -3136,7 +3136,7 @@
                 
                 // Add touch handlers
                 card.addEventListener('touchstart', (e) => {
-                    swipeStartX = e.touches[0].clientX;
+                    equipmentSwipeStartX = e.touches[0].clientX;
                     currentSwipeCard = card;
                 }, { passive: true });
                 
@@ -3144,7 +3144,7 @@
                     if (!currentSwipeCard) return;
                     
                     const currentX = e.touches[0].clientX;
-                    const deltaX = swipeStartX - currentX;
+                    const deltaX = equipmentSwipeStartX - currentX;
                     
                     if (deltaX > 50) {
                         swipeActions.classList.add('visible');
