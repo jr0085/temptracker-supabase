@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Temp Tracker Pro v1.10.52 | Cristy's Pizza</title>
+    <title>Temp Tracker Pro v1.10.53 | Cristy's Pizza</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.3/dist/umd/supabase.js"></script>
     <style>
@@ -270,17 +270,16 @@
         
         /* Mobile-specific improvements */
         @media (max-width: 768px) {
-            /* Reduce header font size and icon by 50% on mobile */
-            h1.text-3xl {
-                font-size: 1.125rem !important; /* 50% reduction from text-3xl */
-                line-height: 1.4 !important;
+            /* Header font size optimized for mobile - already using text-xl */
+            h1.text-xl {
+                font-size: 1rem !important; /* Compact for mobile */
+                line-height: 1.3 !important;
             }
             
-            /* Reduce header icon size by 50% */
+            /* Header icon already optimized in HTML - mobile responsive */
             .header-icon {
-                font-size: 1.5rem !important; /* 50% of original size */
-                width: 2rem !important;
-                height: 2rem !important;
+                width: 1.25rem !important; /* h-5 equivalent for mobile */
+                height: 1.25rem !important;
             }
             
             /* Reduce card padding on mobile */
@@ -293,16 +292,144 @@
                 display: none !important;
             }
             
+            /* Bottom Navigation Bar */
+            .bottom-nav {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                z-index: 50;
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+                padding: 0.75rem 1rem;
+                background: rgba(255, 255, 255, 0.95);
+                backdrop-filter: blur(10px);
+                border-top: 1px solid rgba(0, 0, 0, 0.1);
+                box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.1);
+            }
+            
+            .dark .bottom-nav {
+                background: rgba(17, 24, 39, 0.95);
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+                box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.3);
+            }
+            
+            .bottom-nav-item {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                padding: 0.5rem;
+                border-radius: 0.75rem;
+                transition: all 0.3s ease;
+                min-width: 44px;
+                min-height: 44px;
+                cursor: pointer;
+            }
+            
+            .bottom-nav-item:hover, .bottom-nav-item.active {
+                background: rgba(58, 109, 55, 0.1);
+                transform: translateY(-2px);
+            }
+            
+            .bottom-nav-icon {
+                width: 1.5rem;
+                height: 1.5rem;
+                padding: 0.25rem;
+                border-radius: 0.5rem;
+                margin-bottom: 0.25rem;
+                background: linear-gradient(135deg, rgb(58, 109, 55), rgb(46, 87, 44));
+                color: white;
+            }
+            
+            .bottom-nav-text {
+                font-size: 0.75rem;
+                font-weight: 500;
+                color: #6b7280;
+            }
+            
+            .dark .bottom-nav-text {
+                color: #9ca3af;
+            }
+            
+            .bottom-nav-item.active .bottom-nav-text {
+                color: rgb(58, 109, 55);
+            }
+            
+            .dark .bottom-nav-item.active .bottom-nav-text {
+                color: rgb(74, 135, 69);
+            }
+            
+            /* Add bottom padding to main content when bottom nav is visible */
+            main {
+                padding-bottom: 6rem !important;
+            }
+            
+        }
+        
+        /* Hide bottom navigation on desktop */
+        @media (min-width: 769px) {
+            .bottom-nav {
+                display: none !important;
+            }
+            
+            main {
+                padding-bottom: 2rem !important;
+            }
+        }
+        
+        /* Floating Action Button (FAB) */
+        @media (max-width: 768px) {
+            .fab {
+                position: fixed;
+                bottom: 5.5rem; /* Above bottom nav */
+                right: 1.5rem;
+                z-index: 60;
+                width: 3.5rem;
+                height: 3.5rem;
+                border-radius: 50%;
+                background: linear-gradient(135deg, rgb(58, 109, 55), rgb(46, 87, 44));
+                box-shadow: 0 8px 25px rgba(58, 109, 55, 0.4);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                border: none;
+                outline: none;
+            }
+            
+            .fab:hover {
+                transform: scale(1.1);
+                box-shadow: 0 12px 35px rgba(58, 109, 55, 0.6);
+            }
+            
+            .fab:active {
+                transform: scale(0.95);
+            }
+            
+            .fab svg {
+                width: 1.75rem;
+                height: 1.75rem;
+                color: white;
+            }
+        }
+        
+        /* Hide FAB on desktop */
+        @media (min-width: 769px) {
+            .fab {
+                display: none !important;
+            }
         }
         
         /* Text contrast improvements - Headers and important text */
         
         /* Main header text - TempTracker Pro and subtitle */
-        h1.text-3xl {
+        h1.text-xl {
             color: #111827 !important; /* very dark gray in light mode */
         }
         
-        .dark h1.text-3xl {
+        .dark h1.text-xl {
             color: #f9fafb !important; /* very light in dark mode */
         }
         
@@ -1371,16 +1498,16 @@
 <body class="min-h-screen">
     <!-- Header -->
     <header class="glass-strong shadow-2xl border-b border-white/30 floating">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
             <div class="flex items-center justify-between">
-                <div class="flex items-center space-x-4">
-                    <div class="p-3 rounded-xl shadow-lg" style="background: linear-gradient(135deg, rgb(58, 109, 55), rgb(46, 87, 44));">
-                        <svg class="h-8 w-8 text-white header-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div class="flex items-center space-x-2">
+                    <div class="p-2 rounded-lg shadow-lg" style="background: linear-gradient(135deg, rgb(58, 109, 55), rgb(46, 87, 44));">
+                        <svg class="h-5 w-5 text-white header-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
                         </svg>
                     </div>
                     <div>
-                        <h1 class="text-3xl font-bold text-gray-900 dark:text-gray-100">Temp Tracker Pro</h1>
+                        <h1 class="text-xl font-bold text-gray-900 dark:text-gray-100">TempTracker Pro</h1>
                     </div>
                 </div>
                 <div class="flex flex-col items-end space-y-1">
@@ -1418,7 +1545,7 @@
                     
                     <!-- Version Number (positioned below user dropdown in header) -->
                     <div class="text-xs text-gray-600 dark:text-gray-400 bg-transparent pr-4">
-                        v1.10.52
+                        v1.10.53
                     </div>
                 </div>
             </div>
@@ -6983,7 +7110,7 @@
 
         // Initialize everything
         document.addEventListener('DOMContentLoaded', async function() {
-            console.log('🌡️ Temp Tracker Pro v1.10.52 loaded successfully!');
+            console.log('🌡️ Temp Tracker Pro v1.10.53 loaded successfully!');
             loadDarkModePreference();
             
             // Load stores first (needed for signup form)
@@ -7197,6 +7324,142 @@
             } catch (error) {
                 console.error('Error deleting temperature log:', error);
                 showNotification('Error deleting temperature: ' + error.message, 'error');
+            }
+        };
+
+        // Mobile navigation functions
+        window.scrollToSection = function(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                
+                // Update active state in bottom nav
+                document.querySelectorAll('.bottom-nav-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+                event.target.closest('.bottom-nav-item').classList.add('active');
+            }
+        };
+
+        window.openQuickTempModal = function() {
+            if (!selectedStore) {
+                showNotification('Please select a store first', 'warning');
+                return;
+            }
+
+            // Check if we have equipment
+            const equipmentList = document.getElementById('equipment-list');
+            if (!equipmentList || equipmentList.children.length === 0) {
+                showNotification('No equipment available. Add equipment first.', 'warning');
+                return;
+            }
+
+            // Create quick temp modal
+            const quickModal = document.createElement('div');
+            quickModal.className = 'fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4';
+            quickModal.style.zIndex = '9999999';
+            quickModal.innerHTML = `
+                <div class="glass-strong rounded-2xl shadow-2xl max-w-md w-full p-6 border border-white/40">
+                    <div class="text-center mb-6">
+                        <div class="p-3 rounded-full mx-auto mb-4 w-16 h-16 flex items-center justify-center" style="background: linear-gradient(135deg, rgb(58, 109, 55), rgb(46, 87, 44));">
+                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900">Quick Temperature Log</h3>
+                        <p class="text-gray-600 mt-2">Log temperature for first available equipment</p>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Temperature (°F)</label>
+                        <div class="relative">
+                            <input type="number" id="quick-temp-input" step="0.1" 
+                                   class="w-full px-6 py-4 text-3xl font-bold text-center border-2 border-gray-300 rounded-2xl focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
+                                   placeholder="0.0" autofocus>
+                            <span class="absolute right-6 top-1/2 transform -translate-y-1/2 text-2xl font-bold text-gray-400">°F</span>
+                        </div>
+                    </div>
+                    
+                    <div class="flex space-x-3">
+                        <button onclick="closeQuickTempModal()" 
+                                class="flex-1 px-4 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors font-semibold">
+                            Cancel
+                        </button>
+                        <button onclick="saveQuickTemp()" 
+                                class="flex-1 px-4 py-3 glow-button text-white rounded-lg font-semibold">
+                            Log Temperature
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(quickModal);
+            document.body.classList.add('modal-open');
+            
+            // Focus the input
+            setTimeout(() => {
+                const input = document.getElementById('quick-temp-input');
+                input.focus();
+            }, 100);
+        };
+
+        window.closeQuickTempModal = function() {
+            const modal = document.querySelector('.fixed.inset-0.bg-black\\/50');
+            if (modal) {
+                document.body.classList.remove('modal-open');
+                modal.remove();
+            }
+        };
+
+        window.saveQuickTemp = async function() {
+            if (!selectedStore || !currentUser) {
+                showNotification('Authentication or store selection required', 'error');
+                return;
+            }
+
+            const tempInput = document.getElementById('quick-temp-input');
+            const tempValue = parseFloat(tempInput.value);
+            
+            if (isNaN(tempValue)) {
+                showNotification('Please enter a valid temperature', 'error');
+                return;
+            }
+
+            try {
+                // Get first equipment item
+                const equipmentCards = document.querySelectorAll('.equipment-card');
+                if (equipmentCards.length === 0) {
+                    showNotification('No equipment available', 'error');
+                    return;
+                }
+
+                // Find the first equipment ID from the first card
+                const firstCard = equipmentCards[0];
+                const tempInputField = firstCard.querySelector('input[type="number"]');
+                if (!tempInputField) {
+                    showNotification('No temperature input found', 'error');
+                    return;
+                }
+
+                const equipmentId = tempInputField.id.replace('temp-', '');
+                
+                // Log the temperature using existing function
+                const result = await logTemperatureToDatabase(equipmentId, tempValue, selectedStore.id, currentUser.id);
+                
+                if (result.success) {
+                    showNotification(`🌡️ Temperature logged: ${tempValue}°F`, 'success');
+                    closeQuickTempModal();
+                    
+                    // Update the UI
+                    tempInputField.value = tempValue;
+                    await updateUI();
+                } else {
+                    showNotification('Error logging temperature: ' + result.error, 'error');
+                }
+                
+            } catch (error) {
+                console.error('Error in saveQuickTemp:', error);
+                showNotification('Error logging temperature: ' + error.message, 'error');
             }
         };
 
@@ -7487,6 +7750,52 @@
         <div class="px-4 py-2 border-t border-gray-100">
         </div>
     </div>
+
+    <!-- Mobile Bottom Navigation -->
+    <nav class="bottom-nav">
+        <div class="bottom-nav-item" onclick="scrollToSection('temperature-logging')">
+            <div class="bottom-nav-icon">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                </svg>
+            </div>
+            <span class="bottom-nav-text">Temps</span>
+        </div>
+        
+        <div class="bottom-nav-item" onclick="scrollToSection('equipment-management')">
+            <div class="bottom-nav-icon">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 9a2 2 0 00-2 2v2a2 2 0 002 2m0 0h14m-14 0a2 2 0 002 2v2a2 2 0 01-2 2"></path>
+                </svg>
+            </div>
+            <span class="bottom-nav-text">Equipment</span>
+        </div>
+        
+        <div class="bottom-nav-item" onclick="openTempHistoryModal()">
+            <div class="bottom-nav-icon">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                </svg>
+            </div>
+            <span class="bottom-nav-text">Reports</span>
+        </div>
+        
+        <div class="bottom-nav-item" onclick="toggleUserMenu()">
+            <div class="bottom-nav-icon">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                </svg>
+            </div>
+            <span class="bottom-nav-text">Profile</span>
+        </div>
+    </nav>
+
+    <!-- Floating Action Button (FAB) -->
+    <button class="fab" onclick="openQuickTempModal()" title="Quick Temperature Log">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+        </svg>
+    </button>
 
 </body>
 </html>
