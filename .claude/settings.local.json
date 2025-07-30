@@ -6,8 +6,50 @@
       "Bash(find:*)",
       "Bash(rm:*)",
       "Bash(python:*)",
-      "Bash(ls:*)"
+      "Bash(ls:*)",
+      "mcp__voice-mode__converse",
+      "mcp__voice-mode__voice_status",
+      "mcp__voice-mode__service",
+      "mcp__voice-mode__kokoro_install",
+      "mcp__voice-mode__whisper_install",
+      "mcp__voice-mode__check_audio_dependencies",
+      "mcp__voice-mode__list_config_keys",
+      "mcp__voice-mode__voice_mode_info",
+      "Bash(systemctl:*)",
+      "Bash(ss:*)",
+      "Bash(grep:*)",
+      "Bash(nvidia-smi:*)",
+      "Bash(wget:*)",
+      "Bash(sudo dpkg:*)",
+      "Bash(nvcc:*)",
+      "Bash(apt list:*)",
+      "Bash(echo $USER)",
+      "Bash(groups)",
+      "Bash(sudo apt:*)",
+      "Bash(git push:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git restore:*)",
+      "Bash(git fetch:*)",
+      "Bash(git rev-parse:*)",
+      "Bash(curl:*)",
+      "Bash(gh api:*)",
+      "Bash(cp:*)"
     ],
     "deny": []
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|MultiEdit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cmd /c \".claude\\auto-commit.bat\"",
+            "platforms": ["windows"]
+          }
+        ]
+      }
+    ]
   }
 }
