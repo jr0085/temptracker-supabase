@@ -3,7 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Temp Tracker Pro v1.10.57 | Cristy's Pizza</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#059669">
+    <title>Temp Tracker Pro v1.10.59 | Cristy's Pizza</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.3/dist/umd/supabase.js"></script>
     <style>
@@ -270,6 +274,19 @@
         
         /* Mobile-specific improvements */
         @media (max-width: 768px) {
+            /* General font size reduction by 20% for mobile */
+            body, p, span, div, button, input, select, textarea, label {
+                font-size: 0.8em !important;
+            }
+            
+            /* Heading font size reductions by 20% */
+            h1 { font-size: 1.6rem !important; }
+            h2 { font-size: 1.2rem !important; }
+            h3 { font-size: 1.0rem !important; }
+            h4 { font-size: 0.9rem !important; }
+            h5 { font-size: 0.8rem !important; }
+            h6 { font-size: 0.7rem !important; }
+            
             /* Header font size optimized for mobile - already using text-xl */
             h1.text-xl {
                 font-size: 1rem !important; /* Compact for mobile */
@@ -285,6 +302,16 @@
             /* Reduce card padding on mobile */
             .equipment-card, .p-6 {
                 padding: 0.5rem !important; /* p-2 equivalent */
+            }
+            
+            /* Button text sizes reduced by 20% */
+            .btn-primary, .btn-secondary, button {
+                font-size: 0.7rem !important;
+            }
+            
+            /* Navigation and tab text reduced */
+            .bottom-nav-text, .profile-tab {
+                font-size: 0.6rem !important;
             }
             
             /* Store selector mobile optimization */
@@ -831,6 +858,78 @@
         
         .dark #profile-settings-modal .store-access-item .store-address {
             color: #9ca3af !important;
+        }
+        
+        /* Mobile Profile Settings - Full Screen Display */
+        @media (max-width: 768px) {
+            #profile-settings-modal {
+                padding: 0 !important;
+                align-items: stretch !important;
+                justify-content: stretch !important;
+            }
+            
+            #profile-settings-modal > div {
+                max-width: none !important;
+                width: 100% !important;
+                height: 100vh !important;
+                border-radius: 0 !important;
+                border: none !important;
+                display: flex !important;
+                flex-direction: column !important;
+                overflow: hidden !important;
+            }
+            
+            #profile-settings-modal > div > div {
+                padding: 1rem !important;
+                flex: 1 !important;
+                overflow-y: auto !important;
+                overflow-x: hidden !important;
+                -webkit-overflow-scrolling: touch !important;
+            }
+            
+            /* Ensure tabs are fully visible and scrollable */
+            #profile-settings-modal .flex.space-x-8 {
+                flex-wrap: nowrap !important;
+                overflow-x: auto !important;
+                -webkit-overflow-scrolling: touch !important;
+                padding-bottom: 0.5rem !important;
+                margin-bottom: 1rem !important;
+            }
+            
+            /* Make sure profile content area is properly scrollable */
+            #profile-settings-modal .mt-8 {
+                height: auto !important;
+                max-height: none !important;
+                overflow: visible !important;
+            }
+            
+            #profile-settings-modal h3 {
+                font-size: 1.5rem !important;
+                margin-bottom: 1rem !important;
+            }
+            
+            #profile-settings-modal .profile-tab {
+                padding: 0.75rem 1rem !important;
+                font-size: 0.875rem !important;
+            }
+            
+            #profile-settings-modal input[type="text"],
+            #profile-settings-modal input[type="email"],
+            #profile-settings-modal select {
+                padding: 0.75rem !important;
+                font-size: 1rem !important;
+            }
+            
+            #profile-settings-modal button {
+                padding: 0.75rem 1.5rem !important;
+                font-size: 0.875rem !important;
+                min-height: 44px !important;
+            }
+            
+            #profile-settings-modal .store-access-item {
+                padding: 1rem !important;
+                margin-bottom: 0.75rem !important;
+            }
         }
         
         /* Section headers - Select Store Location, Temperature Logging */
@@ -1630,7 +1729,7 @@
                     
                     <!-- Version Number (positioned below user dropdown in header) -->
                     <div class="text-xs text-gray-600 dark:text-gray-400 bg-transparent pr-4">
-                        v1.10.57
+                        v1.10.59
                     </div>
                 </div>
             </div>
@@ -6706,9 +6805,6 @@
                 
                 // Update chart (simplified text-based for now)
                 updateTempChart(filteredLogs);
-                
-                updateStatus('✅ Temperature history refreshed');
-                showNotification('Temperature history updated!', 'success');
             } catch (error) {
                 console.error('Error refreshing temperature history:', error);
                 updateStatus('❌ Error refreshing temperature history');
@@ -7392,8 +7488,27 @@
 
         // Initialize everything
         document.addEventListener('DOMContentLoaded', async function() {
-            console.log('🌡️ TempTracker Pro v1.10.57 loaded successfully!');
+            console.log('🌡️ TempTracker Pro v1.10.59 loaded successfully!');
             loadDarkModePreference();
+            
+            // Request fullscreen on mobile devices
+            if (/Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                const requestFullscreen = () => {
+                    if (document.documentElement.requestFullscreen) {
+                        document.documentElement.requestFullscreen().catch(() => {});
+                    } else if (document.documentElement.webkitRequestFullscreen) {
+                        document.documentElement.webkitRequestFullscreen().catch(() => {});
+                    } else if (document.documentElement.mozRequestFullScreen) {
+                        document.documentElement.mozRequestFullScreen().catch(() => {});
+                    } else if (document.documentElement.msRequestFullscreen) {
+                        document.documentElement.msRequestFullscreen().catch(() => {});
+                    }
+                };
+                
+                // Try to go fullscreen on first user interaction
+                document.addEventListener('touchstart', requestFullscreen, { once: true });
+                document.addEventListener('click', requestFullscreen, { once: true });
+            }
             
             // Load stores first (needed for signup form)
             await initStores();
