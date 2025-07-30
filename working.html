@@ -3788,10 +3788,18 @@
 
         function showPasswordResetPage() {
             console.log('🔓 Opening password reset modal...');
+            
+            // Close any competing modals first
+            const authModal = document.getElementById('auth-modal');
+            if (authModal && !authModal.classList.contains('hidden')) {
+                authModal.classList.add('hidden');
+                console.log('🔒 Closed auth modal to show password reset');
+            }
+            
             const modal = document.getElementById('password-reset-page');
             if (modal) {
                 modal.classList.remove('hidden');
-                console.log('✅ Password reset modal opened');
+                console.log('✅ Password reset modal opened with high z-index');
             } else {
                 console.error('❌ Password reset modal not found!');
             }
@@ -7416,7 +7424,7 @@
     </div>
 
     <!-- Password Reset Page -->
-    <div id="password-reset-page" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
+    <div id="password-reset-page" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full" style="z-index: 9999999 !important;">
         <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white dark:bg-gray-800">
             <div class="mt-3 text-center">
                 <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100 dark:bg-green-900">
