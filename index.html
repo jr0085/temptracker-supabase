@@ -7,7 +7,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="theme-color" content="#059669">
-    <title>TempTracker Pro v1.10.89 | Cristy's Pizza</title>
+    <title>TempTracker Pro v1.10.90 | Cristy's Pizza</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.3/dist/umd/supabase.js"></script>
     <style>
@@ -590,6 +590,17 @@
             
         }
         
+        /* Keyboard avoidance for temperature input modals */
+        .keyboard-avoid {
+            transform: translateY(-20vh) !important;
+            transition: transform 0.3s ease-in-out;
+        }
+        
+        .keyboard-avoid-reset {
+            transform: translateY(0) !important;
+            transition: transform 0.3s ease-in-out;
+        }
+
         /* Hide bottom navigation on desktop */
         @media (min-width: 769px) {
             .bottom-nav {
@@ -598,6 +609,11 @@
             
             main {
                 padding-bottom: 2rem !important;
+            }
+            
+            /* Disable keyboard avoidance on desktop */
+            .keyboard-avoid {
+                transform: none !important;
             }
         }
         
@@ -2027,7 +2043,7 @@
                     
                     <!-- Version Number (positioned below user dropdown in header) -->
                     <div class="text-xs text-gray-600 dark:text-gray-400 bg-transparent pr-4">
-                        v1.10.89
+                        v1.10.90
                     </div>
                 </div>
             </div>
@@ -6847,12 +6863,12 @@
             // Create temperature modal HTML
             const tempModal = document.createElement('div');
             tempModal.id = 'temp-log-modal';
-            tempModal.className = 'fixed inset-0 bg-black/40 backdrop-blur-md flex items-center justify-center p-4';
+            tempModal.className = 'fixed inset-0 bg-black/40 backdrop-blur-md flex items-start justify-center p-0 md:p-4';
             tempModal.style.zIndex = '999999';
             
             tempModal.innerHTML = `
-                <div class="glass-strong rounded-3xl shadow-2xl max-w-md w-full border border-white/40 floating">
-                    <div class="p-8">
+                <div class="glass-strong rounded-none md:rounded-3xl shadow-2xl max-w-none md:max-w-md w-full md:border border-white/40 floating min-h-full md:min-h-auto">
+                    <div class="p-6 pb-2 md:pb-6">
                         <div class="text-center mb-6">
                             <div class="p-3 rounded-full mx-auto mb-4 w-16 h-16 flex items-center justify-center" style="background: linear-gradient(135deg, ${getEquipmentColor(eq.type)});">
                                 ${eq.photo ? `<img src="${eq.photo}" alt="${eq.name}" class="w-12 h-12 rounded-full object-cover">` : getEquipmentIcon(eq.type)}
@@ -6912,10 +6928,27 @@
             document.body.appendChild(tempModal);
             document.body.classList.add('modal-open');
             
-            // Focus on input after a brief delay
+            // Focus on input after a brief delay and add keyboard avoidance
             setTimeout(() => {
                 const input = document.getElementById('temp-input');
-                if (input) input.focus();
+                if (input) {
+                    input.focus();
+                    
+                    // Add keyboard avoidance for mobile
+                    input.addEventListener('focus', () => {
+                        if (window.innerWidth <= 768) {
+                            tempModal.classList.add('keyboard-avoid');
+                        }
+                    });
+                    
+                    input.addEventListener('blur', () => {
+                        tempModal.classList.remove('keyboard-avoid');
+                        tempModal.classList.add('keyboard-avoid-reset');
+                        setTimeout(() => {
+                            tempModal.classList.remove('keyboard-avoid-reset');
+                        }, 300);
+                    });
+                }
             }, 100);
         }
         
@@ -7882,7 +7915,7 @@
 
         // Initialize everything
         document.addEventListener('DOMContentLoaded', async function() {
-            console.log('🌡️ TempTracker Pro v1.10.89 loaded successfully!');
+            console.log('🌡️ TempTracker Pro v1.10.90 loaded successfully!');
             loadDarkModePreference();
             
             // Request fullscreen on mobile devices
@@ -8167,10 +8200,10 @@
             // Create quick temp modal
             const quickModal = document.createElement('div');
             quickModal.id = 'quick-temp-modal';
-            quickModal.className = 'fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4';
+            quickModal.className = 'fixed inset-0 bg-black/50 backdrop-blur-sm flex items-start justify-center p-0 md:p-4';
             quickModal.style.zIndex = '9999999999';
             quickModal.innerHTML = `
-                <div class="glass-strong rounded-2xl shadow-2xl max-w-md w-full p-6 border border-white/40">
+                <div class="glass-strong rounded-none md:rounded-2xl shadow-2xl max-w-none md:max-w-md w-full p-6 pb-2 md:pb-6 md:border border-white/40 min-h-full md:min-h-auto">
                     <div class="text-center mb-6">
                         <div id="status-icon-container" class="p-3 rounded-full mx-auto mb-4 w-16 h-16 flex items-center justify-center transition-all duration-300" style="background: linear-gradient(135deg, rgb(58, 109, 55), rgb(46, 87, 44));">
                             <svg id="status-icon" class="w-8 h-8 text-white transition-all duration-300" fill="currentColor" viewBox="0 0 256 256">
@@ -8213,6 +8246,21 @@
             setTimeout(() => {
                 const input = document.getElementById('quick-temp-input');
                 input.focus();
+                
+                // Add keyboard avoidance for mobile
+                input.addEventListener('focus', () => {
+                    if (window.innerWidth <= 768) {
+                        quickModal.classList.add('keyboard-avoid');
+                    }
+                });
+                
+                input.addEventListener('blur', () => {
+                    quickModal.classList.remove('keyboard-avoid');
+                    quickModal.classList.add('keyboard-avoid-reset');
+                    setTimeout(() => {
+                        quickModal.classList.remove('keyboard-avoid-reset');
+                    }, 300);
+                });
                 
                 // Update status icon and colors when temperature is entered
                 input.addEventListener('input', function() {
