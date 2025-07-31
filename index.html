@@ -7,7 +7,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="theme-color" content="#059669">
-    <title>TempTracker Pro v1.10.84 | Cristy's Pizza</title>
+    <title>TempTracker Pro v1.10.85 | Cristy's Pizza</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.3/dist/umd/supabase.js"></script>
     <style>
@@ -2027,7 +2027,7 @@
                     
                     <!-- Version Number (positioned below user dropdown in header) -->
                     <div class="text-xs text-gray-600 dark:text-gray-400 bg-transparent pr-4">
-                        v1.10.84
+                        v1.10.85
                     </div>
                 </div>
             </div>
@@ -6541,7 +6541,7 @@
                 const glowClass = getStatusGlowClass(status);
                 
                 return `
-                    <div class="glass rounded-xl p-4 flex flex-col sm:flex-row sm:items-center justify-between card-hover ${glowClass} transition-all duration-300 gap-4 sm:gap-0">
+                    <div class="glass rounded-xl p-4 flex flex-col sm:flex-row sm:items-center justify-between card-hover ${glowClass} transition-all duration-300 gap-4 sm:gap-0 cursor-pointer" onclick="openEquipmentHistoryModal('${eq.id}')">
                         <div class="flex items-center space-x-4 flex-1">
                             <div class="p-2 rounded-lg ${eq.photo ? 'p-0' : ''}" style="background: ${eq.photo ? 'transparent' : `linear-gradient(135deg, ${getEquipmentColor(eq.type)})`};">
                                 ${eq.photo ? `<img src="${eq.photo}" alt="${eq.name}" class="w-12 h-12 rounded-lg object-cover">` : getEquipmentIcon(eq.type)}
@@ -6569,7 +6569,7 @@
                                        onblur="updateTemperatureVisualFeedback('${eq.id}', this.value)"
                                        onkeypress="handleBulkTemperatureKeypress(event, '${eq.id}')">
                             ` : `
-                                <button onclick="openTemperatureModal('${eq.id}')" class="glow-button text-white px-6 py-3 sm:px-4 sm:py-2 rounded-lg font-semibold min-h-[44px] touch-manipulation text-base">
+                                <button onclick="event.stopPropagation(); openTemperatureModal('${eq.id}')" class="glow-button text-white px-6 py-3 sm:px-4 sm:py-2 rounded-lg font-semibold min-h-[44px] touch-manipulation text-base">
                                     🌡️ Log
                                 </button>
                             `}
@@ -7887,7 +7887,7 @@
 
         // Initialize everything
         document.addEventListener('DOMContentLoaded', async function() {
-            console.log('🌡️ TempTracker Pro v1.10.84 loaded successfully!');
+            console.log('🌡️ TempTracker Pro v1.10.85 loaded successfully!');
             loadDarkModePreference();
             
             // Request fullscreen on mobile devices
